@@ -44,6 +44,7 @@
     </div>
     <div class="card-footer">
         <a href="{{ route('client.new') }}" class="btn btn-primary btn-sm">Cadastrar</a>
+        <a href="{{ route('client.export') }}" class="btn btn-primary btn-sm">Exportar</a>
     </div>
 </div>
 

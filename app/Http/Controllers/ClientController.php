@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ClientsFromView;
 use App\Models\Client;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 use Illuminate\Http\Request;
@@ -14,6 +16,10 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function export(){
+        return Excel::download(new ClientsFromView, 'clientes.xlsx');
+    }
+
     public function index()
     {
         $listClient = Client::all();

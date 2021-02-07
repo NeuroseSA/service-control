@@ -2,6 +2,9 @@
 
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
+use App\Models\Client;
+use App\Exports\ClientsFromView;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +30,11 @@ Route::prefix('cliente')->group(function () {
     Route::get('/editar/{id}', 'ClientController@edit')->name('client.edit');
     Route::post('/{id}', 'ClientController@update');
     Route::get('/apagar/{id}', 'ClientController@destroy')->name('client.delete');
+    Route::get('/exportar', 'ClientController@export')->name('client.export');
+/*     Route::get('/download', function(){
+        //return Excel::download(new ClientsFromView, 'clientes.xlsx');
+        return view('client.clientIndex', [
+            'listClient' => Client::all()
+            ]);        
+      })->name('client.export'); */
 });
