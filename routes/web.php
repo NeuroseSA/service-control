@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+});
+
+Route::get('/home', 'UserController@index');
+
+Route::prefix('cliente')->group(function () {
+    Route::get('/', 'ClientController@index')->name('client.index');
+    Route::get('/novo', 'ClientController@create')->name('client.new');
+    Route::post('/novo', 'ClientController@store');
+    Route::get('/editar/{id}', 'ClientController@edit')->name('client.edit');
+    Route::post('/{id}', 'ClientController@update');
+    Route::get('/apagar/{id}', 'ClientController@destroy')->name('client.delete');
 });
