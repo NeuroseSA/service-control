@@ -81,7 +81,21 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        //
+        $cli = Client::where('id', $id)->first();
+        //dd($cli);
+
+        if (isset($cli)) {
+            echo "<h1> Dados do cliente</h1>";
+            echo "<p> Razão Social: {$cli->name}</p>"; 
+        }
+
+        $orders = $cli->orders()->get(); 
+        if (isset($orders)) {
+            echo "<h1> Dados dos serviços</h1>";
+            foreach ($orders as $item) {
+                echo "<p> Descrição: {$item->price}</p>";                 
+            }
+        }
     }
 
     /**
@@ -164,5 +178,11 @@ class ClientController extends Controller
             $cli->delete();
         }
         return redirect(route('client.index'));
+    }
+
+    public function getName($getName)
+    {
+        $cli = Client::where('id', $getName)->first();        
+        return json_encode($cli);
     }
 }

@@ -12,16 +12,15 @@
           <a class="nav-link" href="{{ route('client.index') }}">Clientes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Preços</a>
+          <a class="nav-link" href="{{ route('service.index') }}">Serviços</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Link dropdown
+            Pedidos
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Ação</a>
-            <a class="dropdown-item" href="#">Outra ação</a>
-            <a class="dropdown-item" href="#">Algo mais aqui</a>
+            <a class="dropdown-item" href="{{ route('order.index') }}">Todos Pedidos</a>
+            <a class="dropdown-item" href="{{ route('order.new') }}">Novo Pedido</a>
           </div>
         </li>
       </ul>

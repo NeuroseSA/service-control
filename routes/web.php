@@ -25,16 +25,26 @@ Route::get('/home', 'UserController@index');
 
 Route::prefix('cliente')->group(function () {
     Route::get('/', 'ClientController@index')->name('client.index');
+
+/*      Route::get('/rela/{id}', 'ClientController@show')->name('client.show');
+    Route::get('/order/{order}', 'OrderController@show')->name('order.show'); 
+ */
     Route::get('/novo', 'ClientController@create')->name('client.new');
     Route::post('/novo', 'ClientController@store');
     Route::get('/editar/{id}', 'ClientController@edit')->name('client.edit');
     Route::post('/{id}', 'ClientController@update');
     Route::get('/apagar/{id}', 'ClientController@destroy')->name('client.delete');
     Route::get('/exportar', 'ClientController@export')->name('client.export');
-/*     Route::get('/download', function(){
-        //return Excel::download(new ClientsFromView, 'clientes.xlsx');
-        return view('client.clientIndex', [
-            'listClient' => Client::all()
-            ]);        
-      })->name('client.export'); */
+});
+
+Route::prefix('servico')->group(function () {
+    Route::get('/', 'ServiceController@index')->name('service.index');
+    Route::get('/novo', 'ServiceController@create')->name('service.new');
+    Route::post('/novo', 'ServiceController@store');
+});
+
+Route::prefix('pedido')->group(function () {
+    Route::get('/', 'ServiceController@index')->name('order.index');
+    Route::get('/novo', 'ServiceController@create')->name('order.new');
+    Route::post('/novo', 'ServiceController@store');
 });
