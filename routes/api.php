@@ -18,11 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/servico', 'ServiceController@indexAPI');
-Route::post('/servico', 'ServiceController@store');
+Route::get('/servico', 'Api\\ApiServiceController@index');
+Route::post('/servico', 'Api\\ApivServiceController@store');
 Route::get('/servico/{id}', 'Api\\ApiServiceController@edit');
 Route::put('/servico/{id}', 'Api\\ApiServiceController@update');
 Route::delete('/servico/{id}', 'Api\\ApiServiceController@destroy');
 Route::get('/cliente/{getName}', 'ClientController@getName');
-Route::post('/order', 'ServiceController@store');
 

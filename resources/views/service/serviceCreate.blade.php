@@ -63,10 +63,6 @@
             <a class="btn btn-primary btn-sm" onclick="createOrder()">Adicionar</a>
             <a class="bbtn btn-danger btn-sm" onclick="saveOrder()">Finalizar</a>
         </div>
-        {{-- <button type="submit" class="btn btn-primary btn-sm">Adicionar</button>
-        <button type="submit" class="btn btn-primary btn-sm">Adicionar</button>
-        <button type="submit" class="btn btn-primary btn-sm">Finalizar</button>
-        <button type="submit" onclick="" class="btn btn-danger btn-sm">Cancelar</button> --}}
     </form><br>
 
     <div class="card-footer">
@@ -113,6 +109,7 @@
 
 @section('javascript')
     <script type="text/javascript">
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
@@ -126,36 +123,6 @@
             }           
             $("#digService").modal('hide');           
         });
-
-
-
-
-
-
-        /*         function showLine(os) {     
-                    total = parseInt($('#totalService').val());       
-                    var line = 
-                    "<tr>" 
-                        +
-                            "<td>" + os.order + "</td>" +
-                            "<td>" + os.category + "</td>" +
-                            "<td>" + os.amount + "</td>" +
-                            "<td>" + os.price + "</td>" +
-                            "<td>" + os.model + "</td>" +
-                            "<td>" + os.description + "</td>" +
-                            "<td>" + os.windows_key + "</td>" +
-                            "<td>" + os.price * os.amount + "</td>"
-        /*                     "<td>" + '<a class="btn btn-sm btn-primary" onclick="editOrder('+ os.id +')">Editar </a>' +
-                                    '<a class="btn btn-sm btn-danger" onclick="deleteOrder('+ os.id +')">Apagar </a>' +
-                            "</td>"  
-                        +
-                    "</tr>";   
-                    
-                    total = total + (os.price * os.amount);
-                    $('#totalService').val(total);
-                    $('#total').html("Valor total do serviço: R$ " + total);
-                    return line;      
-                } */
 
     </script>
 @endsection

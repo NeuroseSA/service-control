@@ -9,6 +9,7 @@
         <a href="{{ route('service.new') }}" class="btn btn-primary btn-sm">Novo Serviço</a>
         <a href="" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalExemplo">Filtrar</a>
         <a href="" class="btn btn-primary btn-sm" onclick="listServices()">Limpar filtro</a>
+        <a href="{{ route('service.export') }}" class="btn btn-primary btn-sm">Exportar</a>
     </div>
     <div class="card-body">
         <h4>Todos os Serviços</h4>
@@ -30,31 +31,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
-                   {{--  COMENTADO PARA LISTAR VIA AJAX/API
-                    @foreach ($listServices as $item)
-                        <tr>
-                            <td>{{ $item->id }}</td>
-                            <td>
-                                @foreach ($listClients as $cli)
-                                    @if($item->client_id == $cli->id)
-                                        {{$cli->name}}                                
-                                    @endif
-                                @endforeach
-                            </td>
-                            <td>{{ $item->category }}</td>
-                            <td>{{ $item->price }}</td>
-                            <td>{{ $item->model }}</td>
-                            <td>{{ $item->windows_key }}</td>
-                            <td>{{ $item->description }}</td>
-                            <td>
-                                <a class="btn btn-secondary btn-sm" onclick="editService({{ $item->id }})">Modal</a>
-                               <a href="/servico/editar/{{ $item->id }}" class="btn btn-sm btn-primary">Editar</a>
-                                <a href="/servico/apagar/{{ $item->id }}" class="btn btn-sm btn-danger">Apagar</a>
-                            </td>
-                        </tr>
-                    @endforeach 
-                    --}}
+
                 </tbody> 
             </table>
             @endif

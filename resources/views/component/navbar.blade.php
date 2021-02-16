@@ -1,28 +1,11 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-info">
-    <a class="navbar-brand" href="#">Up Tech</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Alterna navegação">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(Página atual)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('client.index') }}">Clientes</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('service.index') }}">Serviços</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Pedidos
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="{{ route('order.index') }}">Todos Pedidos</a>
-            <a class="dropdown-item" href="{{ route('order.new') }}">Novo Pedido</a>
-          </div>
-        </li>
-      </ul>
-    </div>
+ <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-body border-bottom shadow-sm fixed-top">
+  <p class="h5 my-0 me-md-auto fw-normal">Up Tech - Soluções em TI</p>
+  <nav class="my-2 my-md-0 me-md-3">
+    <a class="p-2 text-dark" href="/">Home</a>
+    <a class="p-2 text-dark" href="{{ route('client.index') }}">Clientes</a>
+    <a class="p-2 text-dark" href="{{ route('service.index') }}">Serviços</a>
+    <a class="p-2 text-dark" href="#">Pedido</a>
+    <a class="p-2 text-dark" href="#">Relatórios</a>
   </nav>
+  <a class="btn btn-outline-primary" href="#">Login</a>
+</header>

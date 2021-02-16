@@ -16,7 +16,8 @@ class ApiServiceController extends Controller
      */
     public function index()
     {
-        //
+        $listServices = Service::All();
+        return  $listServices->toJson();
     }
 
     /**
@@ -37,7 +38,19 @@ class ApiServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $serv = new Service();  
+        $cli = Client::where('name', $request->input('client'))->first();;    
+        $serv->category = $request->input('category');
+        $serv->price = $request->input('price');
+        $serv->amount = $request->input('amount');
+        $serv->order = $request->input('order');
+        $serv->model = $request->input('model');
+        $serv->windows_key = $request->input('windows_key');
+        $serv->description = $request->input('description');
+        $serv->client_id = $cli->id;
+        $serv->save();
+
+        return $serv->toJson();
     }
 
     /**

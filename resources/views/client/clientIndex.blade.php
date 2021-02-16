@@ -7,6 +7,10 @@
 
 
 <div class="card border">
+    <div class="card-footer">
+        <a href="{{ route('client.new') }}" class="btn btn-primary btn-sm">Cadastrar</a>
+        <a href="{{ route('client.export') }}" class="btn btn-primary btn-sm">Exportar</a>
+    </div>
     <div class="card-body">
         <h4>Todos os Clientes</h4>
         @if (count($listClient) > 0)
@@ -41,10 +45,6 @@
                 </tbody>
             </table>
             @endif
-    </div>
-    <div class="card-footer">
-        <a href="{{ route('client.new') }}" class="btn btn-primary btn-sm">Cadastrar</a>
-        <a href="{{ route('client.export') }}" class="btn btn-primary btn-sm">Exportar</a>
     </div>
 </div>
 

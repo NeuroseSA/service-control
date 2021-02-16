@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ServicesFromView;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Service;
 use App\Models\Client;
 use Illuminate\Http\Request;
@@ -18,12 +20,6 @@ class ServiceController extends Controller
         $listServices = Service::all();
         $listClients = Client::all();        
         return view('service.serviceIndex', compact('listServices', 'listClients'));
-    }
-
-    public function indexAPI()
-    {
-        $listServices = Service::All();
-        return  $listServices->toJson();
     }
 
     /**
@@ -54,24 +50,7 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        $serv = new Service();  
-        $cli = Client::where('name', $request->input('client'))->first();;    
-        $serv->category = $request->input('category');
-        $serv->price = $request->input('price');
-        $serv->amount = $request->input('amount');
-        $serv->order = $request->input('order');
-        $serv->model = $request->input('model');
-        $serv->windows_key = $request->input('windows_key');
-        $serv->description = $request->input('description');
-        $serv->client_id = $cli->id;
-        $serv->save();
-
-        return $serv->toJson();
-        //return json_encode($serv);
-
-        
-        //return $id->id;
-        //return redirect(Route('service.index'));
+        //
     }
 
     /**
@@ -93,8 +72,7 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        $serv = Service::find($id);
-        return json_encode($serv);
+        //
     }
 
     /**
@@ -118,5 +96,10 @@ class ServiceController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function export(){
+        return Excel::download(new ServicesFromView, 'Services.xlsx');
+        
     }
 }
