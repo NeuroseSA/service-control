@@ -18,7 +18,7 @@ class ServiceController extends Controller
     public function index()
     {
         $listServices = Service::all();
-        $listClients = Client::all();        
+        $listClients = Client::all();
         return view('service.serviceIndex', compact('listServices', 'listClients'));
     }
 
@@ -31,13 +31,13 @@ class ServiceController extends Controller
     {
         $listClients = Client::all();
         $listService = Service::all();
-        
+
         $os = $listService->where('order')->last();
-        if(isset($os)){
+        if (isset($os)) {
             $order_id = $os->order + 1;
-        }else{
-            $order_id = 1;            
-        }       
+        } else {
+            $order_id = 1;
+        }
 
         return view('service.serviceCreate', compact('listClients', 'order_id'));
     }
@@ -98,8 +98,23 @@ class ServiceController extends Controller
         //
     }
 
-    public function export(){
-        return Excel::download(new ServicesFromView, 'Services.xlsx');
-        
+    public function export(Request $request){
+        $title = array(
+            'id' => $request->input('f_id'),
+            'client_id' => $request->input('f_client_id'),
+            'category' => $request->input('f_category'),
+            'description' => $request->input('f_description'),
+            'model' => $request->input('f_model'),
+            'windows_key' => $request->input('f_windows_key'),
+            'price' => $request->input('f_price'),
+            'amount' => $request->input('f_amount'),
+            'order' => $request->input('f_order')
+        );
+
+        $filter_id = null;
+        $filter_category = null;
+        $filter_client_id = null;
+        $filter_order = 22;
+        return Excel::download(new ServicesFromView($title, $filter_id,  $filter_category,  $filter_client_id, $filter_order, $title), 'Services.xlsx');
     }
 }

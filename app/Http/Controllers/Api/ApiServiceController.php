@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exports\ServicesFromView;
 use App\Http\Controllers\Controller;
 use App\Models\Service;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ApiServiceController extends Controller
 {
@@ -113,6 +115,24 @@ class ApiServiceController extends Controller
         if(isset($serv)){
             $serv->delete();
         }
+    }
+
+    public function export(){
+        $id = null;
+        $client_id = "client_id";
+        $category = "category";
+        $description = "description";
+        $model = "model";
+        $windows_key = "windows_key";
+        $price = "price";
+        $amount = "amount";
+        $order = "order";
+        $filter_id = 1;
+        $filter_category = null;
+        $filter_client_id = null;
+        $filter_order = null;
+        return Excel::download(new ServicesFromView($id,  $category,  $client_id, $order, $description, $model, 
+        $windows_key, $price, $amount, $filter_id,  $filter_category,  $filter_client_id, $filter_order), 'Services.xlsx');        
     }
 
 }

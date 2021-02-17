@@ -24,4 +24,6 @@ Route::get('/servico/{id}', 'Api\\ApiServiceController@edit');
 Route::put('/servico/{id}', 'Api\\ApiServiceController@update');
 Route::delete('/servico/{id}', 'Api\\ApiServiceController@destroy');
 Route::get('/cliente/{getName}', 'ClientController@getName');
+Route::get('/servico/exportar', 'ServiceController@export');
+
 

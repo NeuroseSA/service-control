@@ -37,5 +37,5 @@ Route::prefix('servico')->group(function () {
     Route::get('/', 'ServiceController@index')->name('service.index');
     Route::get('/novo', 'ServiceController@create')->name('service.new');
     Route::post('/novo', 'ServiceController@store');
-    Route::get('/exportar', 'ServiceController@export')->name('service.export');
+    Route::post('/exportar', 'ServiceController@export')->name('service.export');
 });

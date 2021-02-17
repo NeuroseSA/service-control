@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
@@ -184,5 +185,10 @@ class ClientController extends Controller
     {
         $cli = Client::where('id', $getName)->first();        
         return json_encode($cli);
+    }
+
+    public function filter(){
+        $cli = DB::table('clients')->find(1);
+        return $cli;
     }
 }
