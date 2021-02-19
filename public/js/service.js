@@ -1,34 +1,80 @@
-function filter() {
-    filter_client = $("#filter_client").val();
-    filter_order = $("#filter_order").val();
-    filter_category = $("#filter_category").val();
-
-    listServices(filter_client, filter_order, filter_category);
-
+function clearFilters() {
+    $('#filter_client_id').val('Selecione');
+    $('#filter_category').val('Selecione');
+    $('#filter_order').val('');
+    selectAll();
+    document.getElementById('select').checked = false;
 }
 
-function listServices(filter_client, filter_order, filter_category) {
+function selectAll(marcar) {
+    if (marcar) {
+        document.getElementById('acao').innerHTML = '<b>Desmarcar Todos</b>';
+        document.getElementById('f_id').checked = true;
+        document.getElementById('f_client_id').checked = true;
+        document.getElementById('f_category').checked = true;
+        document.getElementById('f_description').checked = true;
+        document.getElementById('f_model').checked = true;
+        document.getElementById('f_windows_key').checked = true;
+        document.getElementById('f_price').checked = true;
+        document.getElementById('f_amount').checked = true;
+        document.getElementById('f_order').checked = true;
+    } else {
+        document.getElementById('acao').innerHTML = '<b>Marcar Todos</b>';
+        document.getElementById('f_id').checked = false;
+        document.getElementById('f_client_id').checked = false;
+        document.getElementById('f_category').checked = false;
+        document.getElementById('f_description').checked = false;
+        document.getElementById('f_model').checked = false;
+        document.getElementById('f_windows_key').checked = false;
+        document.getElementById('f_price').checked = false;
+        document.getElementById('f_amount').checked = false;
+        document.getElementById('f_order').checked = false;
+    }
+}
 
-    $.getJSON('/api/servico', function (orders) {
-        if (typeof (filter_order) != "undefined") {
-            $('#tblServices>tbody>tr').remove();
-            for (i = 0; i < orders.length; i++) {
-                if (orders[i].order == filter_order) {
-                    line = showLine(orders[i]);
-                    $('#tblServices>tbody').append(line);
-                }
-            }
-        } else {
-            $.getJSON('/api/servico', function (orders) {
-                for (i = 0; i < orders.length; i++) {
-                    line = showLine(orders[i]);
-                    $('#tblServices>tbody').append(line);
-                }
-            })
+$(document).ready(function () {
+    $('.modal').on('hidden.bs.modal', function () {
+        console.log('fechar modal')
+        clearFilters();
+    });
+});
+
+function listFilter() {
+
+    filteredListing = {
+        order: $("#list_filter_order").val(),
+        client: $("#list_filter_client").val(),
+        category: $("#list_filter_category").val()
+    };
+    console.log(filteredListing);
+    $.ajax({
+        type: "POST",
+        url: "/api/servico/filtros/",
+        context: this,
+        data: filteredListing,
+        success: function (os) {
+            orders = JSON.parse(os);
+            $('#tblServices>tbody>').remove();
+            console.log(orders);
+             for (i = 0; i < orders.length; i++) {
+                line = showLine(orders[i]);
+                $('#tblServices>tbody').append(line);
+            } 
+        },
+        error: function (error) {        
+            console.log(error);
         }
-    })
+    });
+    
+}
 
-
+function listServices() {
+    $.getJSON('/api/servico', function (orders) {
+        for (i = 0; i < orders.length; i++) {
+            line = showLine(orders[i]);
+            $('#tblServices>tbody').append(line);
+        }
+    });
 }
 
 function showLine(os) {

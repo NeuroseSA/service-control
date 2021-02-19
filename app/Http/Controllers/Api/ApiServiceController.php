@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Exports\ServicesFromView;
 use App\Http\Controllers\Controller;
 use App\Models\Service;
 use App\Models\Client;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 
 class ApiServiceController extends Controller
 {
@@ -117,22 +115,28 @@ class ApiServiceController extends Controller
         }
     }
 
-    public function export(){
-        $id = null;
-        $client_id = "client_id";
-        $category = "category";
-        $description = "description";
-        $model = "model";
-        $windows_key = "windows_key";
-        $price = "price";
-        $amount = "amount";
-        $order = "order";
-        $filter_id = 1;
-        $filter_category = null;
-        $filter_client_id = null;
-        $filter_order = null;
-        return Excel::download(new ServicesFromView($id,  $category,  $client_id, $order, $description, $model, 
-        $windows_key, $price, $amount, $filter_id,  $filter_category,  $filter_client_id, $filter_order), 'Services.xlsx');        
+    public function listFilter(Request $request){
+
+        $this->order = $request->input('order');
+        $this->client = $request->input('client');
+        $this->category = $request->input('category');
+
+             
+
+        $list = Service::where(function ($query) {
+            if ($this->order != null & $this->order > 0) {
+                $query->where('order', $this->order);
+            }
+            if ($this->client != "Selecione") {
+                $this->client_id = Client::where('name', $this->client)->first();
+                $query->where('client_id', $this->client_id->id);
+            }
+            if ($this->category != "Selecione") {
+                $query->where('category', $this->category);
+            }
+        })->get();
+
+        return json_encode($list);
     }
 
 }

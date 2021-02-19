@@ -99,7 +99,7 @@ class ServiceController extends Controller
     }
 
     public function export(Request $request){
-        $title = array(
+        $columns = array(
             'id' => $request->input('f_id'),
             'client_id' => $request->input('f_client_id'),
             'category' => $request->input('f_category'),
@@ -111,10 +111,15 @@ class ServiceController extends Controller
             'order' => $request->input('f_order')
         );
 
-        $filter_id = null;
-        $filter_category = null;
-        $filter_client_id = null;
-        $filter_order = 22;
-        return Excel::download(new ServicesFromView($title, $filter_id,  $filter_category,  $filter_client_id, $filter_order, $title), 'Services.xlsx');
+        $client_id = Client::where('name', $request->input('filter_client_id'))->first();        
+
+        $filters = array(
+            'filter_client_id' => $client_id->id,
+            'filter_category' => $request->input('filter_category'),
+            'filter_order' => $request->input('filter_order')
+        );
+
+        return Excel::download(new ServicesFromView($columns, $filters), 'Services.xlsx');
     }
+    
 }

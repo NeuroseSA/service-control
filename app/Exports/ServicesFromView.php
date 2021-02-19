@@ -13,17 +13,19 @@ class ServicesFromView implements FromQuery , WithHeadings
      */
 
     public function __construct(
-        $title,
-        $filter_id = null,
+        $columns,
+        $filters
+/*         $filter_id = null,
         $filter_category = null,
         $filter_client_id = null,
-        $filter_order = null
+        $filter_order = null */
     ) {
-        $this->filter_id = $filter_id;
+/*         $this->filter_id = $filter_id;
         $this->filter_category = $filter_category;
         $this->filter_client_id = $filter_client_id;
-        $this->filter_order = $filter_order;
-        $this->title = $title;
+        $this->filter_order = $filter_order; */
+        $this->columns = $columns;
+        $this->filters = $filters;
         $this->header = array();
     }
     
@@ -31,55 +33,52 @@ class ServicesFromView implements FromQuery , WithHeadings
     {
 
         $exportsFilters =  Service::query()->where(function ($query) {
-            if ($this->filter_id != null) {
-                $query->where('id', $this->filter_id);
+            if ($this->filters['filter_client_id'] != null & $this->filters['filter_client_id'] > 0) {
+                $query->where('client_id', $this->filters['filter_client_id']);
             }
-            if ($this->filter_category != null) {
-                $query->where('category', $this->filter_category);
+            if ($this->filters['filter_category'] != "Selecione") {
+                $query->where('category', $this->filters['filter_category']);
             }
-            if ($this->filter_client_id != null) {
-                $query->where('client_id', $this->filter_client_id);
-            }
-            if ($this->filter_order != null) {
-                $query->where('order', $this->filter_order);
+            if ($this->filters['filter_order'] != null & $this->filters['filter_order'] > 0) {
+                $query->where('order', $this->filters['filter_order']);
             }
         });
         $servicesExports = $exportsFilters;
         //$this->header = array();
-        if ($this->title['id'] != null) {
+        if ($this->columns['id'] != null) {
             $servicesExports = $exportsFilters->addSelect("id");
             $this->header = array_add($this->header, 'id', 'Id Serviço');
         }
-        if ($this->title['category'] != null) {
+        if ($this->columns['category'] != null) {
             $servicesExports = $exportsFilters->addSelect("category");
             $this->header = array_add($this->header, 'category', 'Tipo de Serviço');
         }
-        if ($this->title['client_id'] != null) {
+        if ($this->columns['client_id'] != null) {
             $servicesExports = $exportsFilters->addSelect("client_id");
             $this->header = array_add($this->header, 'client_id', 'Id do Cliente');
             
         }
-        if ($this->title['description'] != null) {
+        if ($this->columns['description'] != null) {
             $servicesExports = $exportsFilters->addSelect("description");
             $this->header = array_add($this->header, 'description', 'Descrição do Serviço');
         }
-        if ($this->title['model'] != null) {
+        if ($this->columns['model'] != null) {
             $servicesExports = $exportsFilters->addSelect("model");
             $this->header = array_add($this->header, 'model', 'Modelo do Equipamento');
         }
-        if ($this->title['windows_key'] != null) {
+        if ($this->columns['windows_key'] != null) {
             $servicesExports = $exportsFilters->addSelect("windows_key");
             $this->header = array_add($this->header, 'windows_key', 'Licença do Windows');
         }
-        if ($this->title['price'] != null) {
+        if ($this->columns['price'] != null) {
             $servicesExports = $exportsFilters->addSelect("price");
             $this->header = array_add($this->header, 'price', 'Valor');
         }
-        if ($this->title['amount'] != null) {
+        if ($this->columns['amount'] != null) {
             $servicesExports = $exportsFilters->addSelect("amount");
             $this->header = array_add($this->header, 'amount', 'Quantidade');
         }
-        if ($this->title['order'] != null) {
+        if ($this->columns['order'] != null) {
             $servicesExports = $exportsFilters->addSelect("order");
             $this->header = array_add($this->header, 'order', 'Numero da Ordem');
         }   

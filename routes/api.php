@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/servico', 'Api\\ApiServiceController@index');
 Route::post('/servico', 'Api\\ApivServiceController@store');
+Route::post('/servico/filtros', 'Api\\ApiServiceController@listFilter');
 Route::get('/servico/{id}', 'Api\\ApiServiceController@edit');
 Route::put('/servico/{id}', 'Api\\ApiServiceController@update');
 Route::delete('/servico/{id}', 'Api\\ApiServiceController@destroy');
