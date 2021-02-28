@@ -67,6 +67,7 @@
         </main>
         <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
         <script src="{{ asset('js/service.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/order.js') }}" type="text/javascript"></script>
 
         @hasSection ('javascript')
             @yield('javascript')

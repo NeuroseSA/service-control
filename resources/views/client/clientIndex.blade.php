@@ -45,6 +45,10 @@
                 </tbody>
             </table>
             @endif
+
+            <div class="card-footer">
+                {{ $listClient->links() }}
+            </div>
     </div>
 </div>
 

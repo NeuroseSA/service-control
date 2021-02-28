@@ -61,7 +61,7 @@
         <br>
         <div class="card-footer">
             <a class="btn btn-primary btn-sm" onclick="createOrder()">Adicionar</a>
-            <a class="bbtn btn-danger btn-sm" onclick="saveOrder()">Finalizar</a>
+            <a href="{{ route('service.index') }}" class="btn btn-danger btn-sm">Finalizar</a>
         </div>
     </form><br>
 
@@ -72,18 +72,16 @@
         </div>
     </div>
 
-    <table class="table table-ordered table-hover" id="tblServices">
+    <table class="table table-ordered table-hover" id="tblOrders">
         <thead>
             <tr>
-                <th>Código</th>
-                <th>Cliente</th>
+                <th>Id Serviço</th>
+                <th>Ordem</th>
                 <th>Tipo de Serviço</th>
+                <th>Quantidade</th>
                 <th>Valor</th>
-                <th>Modelo</th>
-                <th>Licença</th>
-                <th>Descrição</th>
                 <th>Total Item</th>
-                <th>Ações</th>
+                <th>Remover</th>
             </tr>
         </thead>
         <tbody>

@@ -14,10 +14,10 @@ class ApiServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $listServices = Service::All();
-        return  $listServices->toJson();
+        return Service::paginate(5);
     }
 
     /**
@@ -50,7 +50,7 @@ class ApiServiceController extends Controller
         $serv->client_id = $cli->id;
         $serv->save();
 
-        return $serv->toJson();
+        return json_encode($serv);        
     }
 
     /**
@@ -97,7 +97,6 @@ class ApiServiceController extends Controller
         $serv->client_id = $cli->id;
         $serv->save();
 
-
         return json_encode($serv);
     }
 
@@ -115,13 +114,13 @@ class ApiServiceController extends Controller
         }
     }
 
+   
     public function listFilter(Request $request){
 
         $this->order = $request->input('order');
         $this->client = $request->input('client');
-        $this->category = $request->input('category');
+        $this->category = $request->input('category');            
 
-             
 
         $list = Service::where(function ($query) {
             if ($this->order != null & $this->order > 0) {
@@ -134,8 +133,8 @@ class ApiServiceController extends Controller
             if ($this->category != "Selecione") {
                 $query->where('category', $this->category);
             }
-        })->get();
-
+        })->orderBy('id', 'ASC')->get();
+        
         return json_encode($list);
     }
 

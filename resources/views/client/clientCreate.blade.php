@@ -2,6 +2,8 @@
 
 @section('body')
 
+<h2>Cadastro de clientes</h2>
+
     <form action="{{ route('client.new') }}" method="POST">
         @csrf
         <div class="row">
@@ -33,7 +35,7 @@
         </div>
         <br>        
         <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
-        <button type="submit" class="btn btn-danger btn-sm">Cancelar</button>
+        <button type="button" class="btn btn-danger btn-sm">Cancelar</button>
     </form>
     @if ($errors->any())
     <div class="card-footer">

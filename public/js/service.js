@@ -1,12 +1,14 @@
 function clearFilters() {
+
     $('#filter_client_id').val('Selecione');
     $('#filter_category').val('Selecione');
     $('#filter_order').val('');
     selectAll();
-    document.getElementById('select').checked = false;
+    document.getElementById('select').checked = false;    
 }
 
 function selectAll(marcar) {
+
     if (marcar) {
         document.getElementById('acao').innerHTML = '<b>Desmarcar Todos</b>';
         document.getElementById('f_id').checked = true;
@@ -33,8 +35,8 @@ function selectAll(marcar) {
 }
 
 $(document).ready(function () {
+
     $('.modal').on('hidden.bs.modal', function () {
-        console.log('fechar modal')
         clearFilters();
     });
 });
@@ -46,34 +48,45 @@ function listFilter() {
         client: $("#list_filter_client").val(),
         category: $("#list_filter_category").val()
     };
-    console.log(filteredListing);
     $.ajax({
         type: "POST",
-        url: "/api/servico/filtros/",
+        url: "/api/servico/filtros",
         context: this,
         data: filteredListing,
-        success: function (os) {
-            orders = JSON.parse(os);
-            $('#tblServices>tbody>').remove();
-            console.log(orders);
-             for (i = 0; i < orders.length; i++) {
-                line = showLine(orders[i]);
-                $('#tblServices>tbody').append(line);
-            } 
+        success: function (s) {
+            orders = JSON.parse(s);
+            showListFilter(orders);
         },
         error: function (error) {        
             console.log(error);
         }
-    });
-    
+    });   
+
 }
 
-function listServices() {
-    $.getJSON('/api/servico', function (orders) {
-        for (i = 0; i < orders.length; i++) {
-            line = showLine(orders[i]);
+function showListFilter(listOrders){
+
+    $('#tblServices>tbody>').remove();
+
+    for (i = 0; i < listOrders.length; i++) {
+        console.log(listOrders[i]);
+       line = showLine(listOrders[i]);
+       $('#tblServices>tbody').append(line);
+   } 
+}
+
+function listServices(page) {
+
+    $.getJSON('/api/servico', {page: page}, function (orders) {
+        $('#tblServices>tbody>').remove(); 
+        for (i = 0; i < orders.data.length; i++) {            
+            line = showLine(orders.data[i]);
             $('#tblServices>tbody').append(line);
         }
+        showPaginator(orders);
+         $("#paginatorService>ul>li>a").click(function(){
+            listServices($(this).attr('page'));
+        }); 
     });
 }
 
@@ -100,7 +113,68 @@ function showLine(os) {
     return line;
 }
 
+function getItemPrevious(orders){
+    i = orders.current_page - 1;
+    if(1 == orders.current_page){
+        page = '<li class="page-item disabled">';
+    } else{
+        page = '<li class="page-item active">';
+    }
+    page += '<a class="page-link" page="'+ i +'" href="#">Anterior</a></li>';
+    return page;
+}
+
+function getItemNext(orders){
+    i = orders.current_page + 1;
+    if(orders.last_page == orders.current_page){
+        page = '<li class="page-item disabled">';
+    } else{
+        page = '<li class="page-item active">';
+    }
+    page += '<a class="page-link" page="'+ i +'" href="#">Próximo</a></li>';
+    return page;
+}
+
+function getItem(orders , i){
+    if(i == orders.current_page){
+        page = '<li class="page-item active">';
+    } else{
+        page = '<li class="page-item">';
+    }
+    page += '<a class="page-link" page="'+ i +'" href="#">'+ i +'</a></li>';
+    return page;
+}
+
+function showPaginator(orders){
+
+    $("#paginatorService>ul>li").remove();
+    $("#paginatorService>ul").append(getItemPrevious(orders));
+     
+    if ((orders.current_page - 4) >= 1) {   
+
+        if ((orders.last_page - orders.current_page) >= 5) {    
+            start = orders.current_page - 4;    
+            end = orders.current_page + 5;
+        }else{
+            start = orders.last_page - 9;
+            end = orders.last_page;
+        }
+    }else{
+        start = 1;
+        end = 10;
+    }
+
+    for(i=start; i <= end; i++){
+        getItem(orders, i);
+        $("#paginatorService>ul").append(page);
+    }
+    $("#paginatorService>ul").append(getItemNext(orders));
+
+}
+
+
 function saveEdit() {
+
     serv = {
         id: $("#id").val(),
         category: $("#category").val(),
@@ -112,7 +186,6 @@ function saveEdit() {
         description: $("#description").val(),
         client_id: $("#client_id").val()
     };
-    console.log(serv);
     $.ajax({
         type: "PUT",
         url: "/api/servico/" + serv.id,
@@ -127,7 +200,7 @@ function saveEdit() {
             });
             if (item) {
                 item[0].cells[0].textContent = serv.id;
-                item[0].cells[1].textContent = serv.id;
+                item[0].cells[1].textContent = serv.order;
                 item[0].cells[2].textContent = serv.client_id;
                 item[0].cells[3].textContent = serv.category;
                 item[0].cells[4].textContent = serv.price;
@@ -143,32 +216,10 @@ function saveEdit() {
     });
 }
 
-function createOrder() {
-    order = {
-        order: $("#order").val(),
-        client: $("#client").val(),
-        category: $("#category").val(),
-        model: $("#model").val(),
-        price: $("#price").val(),
-        amount: $("#amount").val(),
-        description: $("#description").val(),
-        windows_key: $("#windows_key").val()
-    };
-    console.log(order);
-    $.post('/api/servico', order, function (data) {
-        os = JSON.parse(data);
-        line = showLine(os);
-        $('#tblServices>tbody').append(line);
-    });
-}
-
 function editService(id) {
-    console.log(id);
 
     $.getJSON("/api/servico/" + id, function (data) {
         getNameClient(data.client_id);
-        console.log(data);
-
         $("#id").val(data.id);
         $("#client_id").val(data.client_id);
         $("#category").val(data.category);
@@ -179,10 +230,11 @@ function editService(id) {
         $("#description").val(data.description);
         $("#windows_key").val(data.windows_key);
         $('#digService').modal('show');
-    });
+    });    
 }
 
 function deleteService(id) {
+
     $.ajax({
         type: "DELETE",
         url: "/api/servico/" + id,
@@ -204,11 +256,8 @@ function deleteService(id) {
 }
 
 function getNameClient(getName) {
+
     $.getJSON("/api/cliente/" + getName, function (data) {
-
-
-        console.log(data.name);
         return $("#client").val(data.name);
-
     });
 }
