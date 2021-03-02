@@ -1,9 +1,6 @@
 <?php
 
-use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
-use App\Models\Client;
-use App\Exports\ClientsFromView;
 
 
 /*
@@ -38,4 +35,6 @@ Route::prefix('servico')->group(function () {
     Route::get('/novo', 'ServiceController@create')->name('service.new');
     Route::post('/novo', 'ServiceController@store');
     Route::post('/exportar', 'ServiceController@export')->name('service.export');
+    Route::get('/{order}/{client}/{category}', 'ServiceController@listFilter');
+    Route::get('/filtros', 'ServiceController@listFilter');
 });

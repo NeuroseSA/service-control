@@ -4,7 +4,7 @@ function clearFilters() {
     $('#filter_category').val('Selecione');
     $('#filter_order').val('');
     selectAll();
-    document.getElementById('select').checked = false;    
+    document.getElementById('select').checked = false;
 }
 
 function selectAll(marcar) {
@@ -41,7 +41,7 @@ $(document).ready(function () {
     });
 });
 
-function listFilter() {
+function listFilter(page) {
 
     filteredListing = {
         order: $("#list_filter_order").val(),
@@ -49,44 +49,51 @@ function listFilter() {
         category: $("#list_filter_category").val()
     };
     $.ajax({
-        type: "POST",
-        url: "/api/servico/filtros",
+        type: "GET",
+        url: "/servico/filtros?page=" + page,
         context: this,
         data: filteredListing,
-        success: function (s) {
-            orders = JSON.parse(s);
-            showListFilter(orders);
+        success: function (orders) {
+            $('#tblServices>tbody>').remove();
+            for (i = 0; i < orders.data.length; i++) {
+                line = showLine(orders.data[i]);
+                $('#tblServices>tbody').append(line);
+            }
+            showPaginator(orders);
+            $("#paginatorService>ul>li>a").click(function () {
+                listFilter($(this).attr('page'));
+            });
         },
-        error: function (error) {        
+        error: function (error) {
             console.log(error);
         }
-    });   
+    });
 
 }
 
-function showListFilter(listOrders){
+function showListFilter(listOrders) {
 
     $('#tblServices>tbody>').remove();
 
     for (i = 0; i < listOrders.length; i++) {
         console.log(listOrders[i]);
-       line = showLine(listOrders[i]);
-       $('#tblServices>tbody').append(line);
-   } 
+        line = showLine(listOrders[i]);
+        $('#tblServices>tbody').append(line);
+    }
 }
 
 function listServices(page) {
 
-    $.getJSON('/api/servico', {page: page}, function (orders) {
-        $('#tblServices>tbody>').remove(); 
-        for (i = 0; i < orders.data.length; i++) {            
+    $.getJSON('/api/servico', { page: page }, function (orders) {
+        $('#tblServices>tbody>').remove();
+        for (i = 0; i < orders.data.length; i++) {
             line = showLine(orders.data[i]);
             $('#tblServices>tbody').append(line);
         }
         showPaginator(orders);
-         $("#paginatorService>ul>li>a").click(function(){
+        $("#paginatorService>ul>li>a").click(function () {
             listServices($(this).attr('page'));
-        }); 
+        });
     });
 }
 
@@ -113,58 +120,67 @@ function showLine(os) {
     return line;
 }
 
-function getItemPrevious(orders){
+function getItemPrevious(orders) {
     i = orders.current_page - 1;
-    if(1 == orders.current_page){
+    if (1 == orders.current_page) {
         page = '<li class="page-item disabled">';
-    } else{
+    } else {
         page = '<li class="page-item active">';
     }
-    page += '<a class="page-link" page="'+ i +'" href="#">Anterior</a></li>';
+    page += '<a class="page-link" page="' + i + '" href="#">Anterior</a></li>';
     return page;
 }
 
-function getItemNext(orders){
+function getItemNext(orders) {
     i = orders.current_page + 1;
-    if(orders.last_page == orders.current_page){
+    if (orders.last_page == orders.current_page) {
         page = '<li class="page-item disabled">';
-    } else{
+    } else {
         page = '<li class="page-item active">';
     }
-    page += '<a class="page-link" page="'+ i +'" href="#">Próximo</a></li>';
+    page += '<a class="page-link" page="' + i + '" href="#">Próximo</a></li>';
     return page;
 }
 
-function getItem(orders , i){
-    if(i == orders.current_page){
+function getItem(orders, i) {
+    if (i == orders.current_page) {
         page = '<li class="page-item active">';
-    } else{
+    } else {
         page = '<li class="page-item">';
     }
-    page += '<a class="page-link" page="'+ i +'" href="#">'+ i +'</a></li>';
+    page += '<a class="page-link" page="' + i + '" href="#">' + i + '</a></li>';
     return page;
 }
 
-function showPaginator(orders){
+function showPaginator(orders) {
 
     $("#paginatorService>ul>li").remove();
     $("#paginatorService>ul").append(getItemPrevious(orders));
-     
-    if ((orders.current_page - 4) >= 1) {   
 
-        if ((orders.last_page - orders.current_page) >= 5) {    
-            start = orders.current_page - 4;    
+    if ((orders.current_page - 4) >= 1) {
+
+        if ((orders.last_page - orders.current_page) >= 5) {
+            start = orders.current_page - 4;
             end = orders.current_page + 5;
-        }else{
-            start = orders.last_page - 9;
+        } else {
             end = orders.last_page;
+            if ((orders.last_page - 9) <= 0) {
+                start = 1;
+            } else {
+                start = orders.last_page - 9;
+            }
         }
-    }else{
+    } else {
         start = 1;
-        end = 10;
+        if ((orders.last_page - orders.current_page) >= 10) {
+            end = 10;
+        } else {
+            end = orders.last_page;
+
+        }
     }
 
-    for(i=start; i <= end; i++){
+    for (i = start; i <= end; i++) {
         getItem(orders, i);
         $("#paginatorService>ul").append(page);
     }
@@ -230,7 +246,7 @@ function editService(id) {
         $("#description").val(data.description);
         $("#windows_key").val(data.windows_key);
         $('#digService').modal('show');
-    });    
+    });
 }
 
 function deleteService(id) {

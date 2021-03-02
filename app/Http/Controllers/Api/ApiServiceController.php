@@ -113,29 +113,5 @@ class ApiServiceController extends Controller
             $serv->delete();
         }
     }
-
-   
-    public function listFilter(Request $request){
-
-        $this->order = $request->input('order');
-        $this->client = $request->input('client');
-        $this->category = $request->input('category');            
-
-
-        $list = Service::where(function ($query) {
-            if ($this->order != null & $this->order > 0) {
-                $query->where('order', $this->order);
-            }
-            if ($this->client != "Selecione") {
-                $this->client_id = Client::where('name', $this->client)->first();
-                $query->where('client_id', $this->client_id->id);
-            }
-            if ($this->category != "Selecione") {
-                $query->where('category', $this->category);
-            }
-        })->orderBy('id', 'ASC')->get();
-        
-        return json_encode($list);
-    }
-
+    
 }

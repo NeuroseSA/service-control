@@ -35,24 +35,11 @@
                     </tbody>
                 </table>
             @endif
+            <nav id="paginatorService" style="left: 50%">
+                <ul class="pagination justify-content-center">
 
-            <nav id="paginatorService">
-                <ul class="pagination">
-{{--                   <li class="page-item disabled">
-                    <span class="page-link">Anterior</span> 
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item active">
-                    <span class="page-link">                      2
-                      
-                    </span>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">Próximo</a>
-                  </li> --}}
                 </ul>
-              </nav>
+            </nav>
         </div>
 
     </div>
