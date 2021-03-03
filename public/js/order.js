@@ -1,3 +1,4 @@
+//Cria novas ordens
 function createOrder() {
 
     order = {
@@ -22,6 +23,10 @@ function createOrder() {
             line = showLineOrder(os);
             $('#tblOrders>tbody').append(line);
             $("#client").prop("disabled", true);
+            total  = parseInt($("#totalService").val()) + (os.amount * os.price);
+            $("#totalService").val(total);
+            $('#total_service>div>h5').remove();
+            $('#total_service>div').append("<h5>Valor total da OS: R$ " + total +"</h5>");
         },
         error: function (error) {
             console.log(error);
@@ -29,8 +34,8 @@ function createOrder() {
     });
 }
 
-function deleteOrder(id) {
-
+//Apaga o serviço inseriro na Ordem(OS)
+function Order_deleteService(id) {
     $.ajax({
         type: "DELETE",
         url: "/api/servico/" + id,
@@ -39,18 +44,16 @@ function deleteOrder(id) {
             console.log("Removido com sucesso!");
             lines = $("#tblOrders>tbody>tr");
             item = lines.filter(function (i, elemento) {
-                var count
-                for (let index = 0; index < elemento.cells[index].length; index++) {
-                    count = index;               
-                }
-                if(count < 1){
-        $("#client").prop("disabled", false);
-                }
                 return elemento.cells[0].textContent == id;
             });
             if (item) {
                 item.remove();
             }
+
+            total  = parseInt($("#totalService").val()) - (os.amount * os.price);
+            $("#totalService").val(total);
+            $('#total_service>div>h5').remove();
+            $('#total_service>div').append("<h5>Valor total da OS: R$ " + total +"</h5>");
         },
         error: function (error) {
             console.log(error);
@@ -58,19 +61,25 @@ function deleteOrder(id) {
     });
 }
 
+//Cancela a Ordem de serviço
+function deleteOrder(order) {
 
-
-function listOrders() {
-
-    $('#tblOrders>tbody>').remove();
-    $.getJSON('/api/servico', function (orders) {
-        for (i = 0; i < orders.length; i++) {
-            line = showLineOrder(orders[i]);
-            $('#tblOrders>tbody').append(line);
+    $.ajax({
+        type: "DELETE",
+        url: "/api/servico/ordem/" + order,
+        context: this,
+        success: function (data) {
+            console.log(data);
+            console.log("OS cancelada com sucesso!");
+        },
+        error: function (error) {
+            console.log(error);
         }
     });
+    listServices();
 }
 
+//Monta a linha de cada ordem adicionada.
 function showLineOrder(os) {
 
     var line =
@@ -82,7 +91,7 @@ function showLineOrder(os) {
         "<td>" + os.amount + "</td>" +
         "<td>" + os.price + "</td>" +
         "<td>" + os.price * os.amount + "</td>" +
-        '<td><a class="btn btn-sm btn-danger" onclick="deleteOrder(' + os.id + ')">Apagar</a>' +
+        '<td><a class="btn btn-sm btn-danger" onclick="Order_deleteService(' + os.id + ')">Remover</a>' +
         "</td>"
         +
         "</tr>";

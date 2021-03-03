@@ -23,9 +23,10 @@ Route::get('/servico/{client_id}', 'Api\\ApiServiceController@index');
 Route::post('/servico', 'Api\\ApiServiceController@store');
 Route::get('/servico/filtros', 'Api\\ApiServiceController@listFilter');
 Route::get('/servico/filtros/{request}', 'Api\\ApiServiceController@listFilter');
-Route::get('/servico/{id}', 'Api\\ApiServiceController@edit');
+Route::get('/servico/editar/{id}', 'Api\\ApiServiceController@edit');
 Route::put('/servico/{id}', 'Api\\ApiServiceController@update');
 Route::delete('/servico/{id}', 'Api\\ApiServiceController@destroy');
+Route::delete('/servico/ordem/{order}', 'Api\\ApiServiceController@destroyOrder');
 Route::get('/cliente/{getName}', 'ClientController@getName');
 Route::get('/servico/exportar', 'ServiceController@export');
 

@@ -46,6 +46,7 @@
 
     @include('component.serviceExportModal')
 
+    {{-- Modal para filtrar a listagem de serviços --}}
     <div class="modal fade" id="filter_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -94,6 +95,27 @@
     </div>
 
     @include('component.serviceEditModal')
+
+        <!-- Modal para confirmar exclusão -->
+    <div class="modal fade" id="confirm_delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Atenção</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+             <p> Ao escolher <b>Apagar Serviço</b>, irá apagar somente este serviços da ordem(OS) a qual ele pertence.</p>
+             <p> Ao escolher <b>Apagar Ordem</b>, irá apagar a ordem e todos os outros serviços da OS.</p>
+            </div>
+            <div id="option_delete" class="modal-footer">
+
+            </div>
+        </div>
+        </div>
+    </div>
 
 @endsection
 

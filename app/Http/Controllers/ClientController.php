@@ -184,11 +184,6 @@ class ClientController extends Controller
     public function getName($getName)
     {
         $cli = Client::where('id', $getName)->first();        
-        return json_encode($cli);
-    }
-
-    public function filter(){
-        $cli = DB::table('clients')->find(1);
         return $cli;
     }
 }

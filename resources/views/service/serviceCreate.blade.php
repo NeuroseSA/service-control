@@ -60,15 +60,16 @@
         </div>
         <br>
         <div class="card-footer">
-            <a class="btn btn-primary btn-sm" onclick="createOrder()">Adicionar</a>
-            <a href="{{ route('service.index') }}" class="btn btn-danger btn-sm">Finalizar</a>
+            <a class="btn btn-primary btn-sm" onclick="createOrder()">Adicionar Serviço</a>
+            <a class="btn btn-danger btn-sm" onclick="deleteOrder({{ $order_id }})" href="{{ route('service.index') }}">Cancelar OS</a>
+            <a href="{{ route('service.index') }}" class="btn btn-success btn-sm">Concluir OS</a>
         </div>
     </form><br>
 
-    <div class="card-footer">
+    <div id="total_service" class="card-footer">
         <div class="col-6">
-            <input type="hidden" id="totalService" name="totalService" value="0">
-            <h4 id="total"></h4>
+            <input type="hidden" id="totalService"  value="0">
+            
         </div>
     </div>
 
@@ -99,9 +100,6 @@
             @endforeach
         </div>
     @endif
-
-    @include('component.serviceEditModal')
-
 @endsection
 
 
@@ -113,14 +111,5 @@
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
             }
         });
-
-        $("#formService").submit(function (event) {
-            event.preventDefault();
-            if($("#id").val() != ''){
-                saveEdit();
-            }           
-            $("#digService").modal('hide');           
-        });
-
     </script>
 @endsection

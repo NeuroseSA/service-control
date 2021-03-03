@@ -113,5 +113,14 @@ class ApiServiceController extends Controller
             $serv->delete();
         }
     }
+
+    public function destroyOrder($order)
+    {
+        $serv = Service::where('order' , $order);
+
+        if(isset($serv)){
+            $serv->delete();
+        }
+    }
     
 }
