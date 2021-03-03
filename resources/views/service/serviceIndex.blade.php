@@ -145,5 +145,6 @@
             listFilter();
             $("#filter_modal").modal('hide');
         }); 
+
     </script>
 @endsection

@@ -1,11 +1,6 @@
+//limpa modal de filtros de exporta. #export_modal
 function clearFilters() {
-
-    //Limpar modal de filtros. #filter_modal
-    $('#list_filter_client').val('Selecione');
-    $('#list_filter_order').val('');
-    $('#list_filter_category').val('Selecione');
-
-    //limpa modal de filtros de exporta. #export_modal
+    
     $('#filter_client_id').val('Selecione');
     $('#filter_category').val('Selecione');
     $('#filter_order').val('');
@@ -41,12 +36,22 @@ function selectAllCheckBox(marcar) {
     }
 }
 
-//Captura evento hide do modal a limpa os campos.
+//Captura eventos do modal a limpa os campos.
 $(document).ready(function () {
 
     $('.modal').on('hidden.bs.modal', function () {
         clearFilters();
+        $('#option_delete>a').remove();
     });
+
+    $('#filter_modal').on('show.bs.modal', function () {
+        //Limpar modal de filtros. #filter_modal
+        $('#list_filter_client').val('Selecione');
+        $('#list_filter_order').val('');
+        $('#list_filter_category').val('Selecione');
+    });
+
+
 });
 
 //Aciona o metodo listFilter no ServiceController passando objeto com os filtros estabelecidos e o page na requisição
@@ -80,19 +85,7 @@ function listFilter(page) {
 
 }
 
-//Monta a listagem com o retorno do listFilter
-function showListFilter(listOrders) {
-
-    $('#tblServices>tbody>').remove();
-
-    for (i = 0; i < listOrders.length; i++) {
-        console.log(listOrders[i]);
-        line = showLine(listOrders[i]);
-        $('#tblServices>tbody').append(line);
-    }
-}
-
-//Carrega listagem de serviços paginada, é acionada quando a página carrega ou temos o #clearFilters
+//Carrega listagem de serviços paginada, é acionada quando a página carrega ou temos acionamento do #clearFilters
 function listServices(page) {
 
     $.getJSON('/api/servico', { page: page }, function (orders) {
@@ -170,7 +163,7 @@ function getItem(orders, i) {
 //Valida a quantidade de ites que a contagem de paginação apresentará.
 function showPaginator(orders) {
 
-    $("#paginatorService>ul>li").remove();
+    $("#paginatorService>ul>").remove();
     $("#paginatorService>ul").append(getItemPrevious(orders));
 
     if ((orders.current_page - 4) >= 1) {
@@ -311,15 +304,5 @@ function confirmDelete(service_id, order_id){
 
     $('#option_delete').append(optionDelete);
 
-
-
-    //$("#confirm_delete").modal('hide');
-
-
-
 }
 
-$('#confirm_delete').on('hidden.bs.modal', function () {
-    $('#option_delete>a').remove();
-
-});
