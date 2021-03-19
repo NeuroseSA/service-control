@@ -73,7 +73,11 @@ class ApiServiceController extends Controller
     public function edit($id)
     {
         $serv = Service::find($id);
-        return json_encode($serv);
+        //$os = Service::where('order' , $id);
+        $os = Service::where('order' , $serv->order)->get();
+       // return $os::paginate(1);
+       return $os;
+       // return json_encode($os);
     }
 
     /**
@@ -87,6 +91,7 @@ class ApiServiceController extends Controller
     {
         $serv = Service::find($id);
         $cli = Client::where('id', $request->input('client_id'))->first();;    
+        $serv->status = $request->input('status');
         $serv->category = $request->input('category');
         $serv->price = $request->input('price');
         $serv->amount = $request->input('amount');

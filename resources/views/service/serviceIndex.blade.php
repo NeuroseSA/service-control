@@ -93,7 +93,7 @@
             </div>
         </div>
     </div>
-
+    
     @include('component.serviceEditModal')
 
         <!-- Modal para confirmar exclusão -->

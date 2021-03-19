@@ -21,19 +21,25 @@ Route::get('/', function () {
 Route::get('/home', 'UserController@index');
 
 Route::prefix('cliente')->group(function () {
+    //GET
     Route::get('/', 'ClientController@index')->name('client.index');
-    Route::get('/novo', 'ClientController@create')->name('client.new');
-    Route::post('/novo', 'ClientController@store');
     Route::get('/editar/{id}', 'ClientController@edit')->name('client.edit');
-    Route::post('/{id}', 'ClientController@update');
+    Route::get('/novo', 'ClientController@create')->name('client.new');
     Route::get('/apagar/{id}', 'ClientController@destroy')->name('client.delete');
     Route::get('/exportar', 'ClientController@export')->name('client.export');
+
+    //POST
+    Route::post('/novo', 'ClientController@store');
+    Route::post('/{id}', 'ClientController@update');
 });
 
 Route::prefix('servico')->group(function () {
+    //GET
     Route::get('/', 'ServiceController@index')->name('service.index');
+    Route::get('/filtros', 'ServiceController@listFilter');
     Route::get('/novo', 'ServiceController@create')->name('service.new');
+
+    //POST
     Route::post('/novo', 'ServiceController@store');
     Route::post('/exportar', 'ServiceController@export')->name('service.export');
-    Route::get('/filtros', 'ServiceController@listFilter');
 });

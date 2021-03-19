@@ -1,6 +1,6 @@
 //limpa modal de filtros de exporta. #export_modal
 function clearFilters() {
-    
+
     $('#filter_client_id').val('Selecione');
     $('#filter_category').val('Selecione');
     $('#filter_order').val('');
@@ -103,7 +103,7 @@ function listServices(page) {
 
 //Monta linha a linha da listagem
 function showLine(os) {
-    
+
     var line =
         "<tr>"
         +
@@ -199,9 +199,9 @@ function showPaginator(orders) {
 
 //Salva edições do serviço realizada no modal e atualiza a listagem
 function saveEdit() {
-
     serv = {
         id: $("#id").val(),
+        status: $("#status").val(),
         category: $("#category").val(),
         price: $("#price").val(),
         amount: $("#amount").val(),
@@ -241,21 +241,39 @@ function saveEdit() {
     });
 }
 
+//mostrar todos os serviços da mesma ordem no modal em uma paginação
+function paginatorServiceModal(i, currentOrder) {
+    if (i == currentOrder) {
+        $('#linkOrders').append('<li class="nav-item"> <a class="nav-link active " onclick="editService(' + i + ');"><b>Serviço #' + i + '</b></a></li>');
+    } else {
+        $('#linkOrders').append('<li class="nav-item"> <a class="nav-link" onclick="editService(' + i + ');"><b>Serviço #' + i + '</b></a></li>');
+    }
+}
+
 //Preenche as informações do modal quando a edição do serviço é acionada
 function editService(id) {
 
-    $.getJSON("/api/servico/editar/" + id, function (data) {
-        getNameClient(data.client_id);
-        $("#id").val(data.id);
-        $("#client_id").val(data.client_id);
-        $("#category").val(data.category);
-        $("#model").val(data.model);
-        $("#order").val(data.order);
-        $("#price").val(data.price);
-        $("#amount").val(data.amount);
-        $("#description").val(data.description);
-        $("#windows_key").val(data.windows_key);
-        $('#digService').modal('show');
+    $('#digService').modal('show');
+
+    $.getJSON("/api/servico/editar/" + id, function (orders) {
+        $('#linkOrders>').remove();
+        for (i = 0; i < orders.length; i++) {
+            paginatorServiceModal(orders[i].id, id);
+            if (orders[i].id == id) {
+
+                getNameClient(orders[i].client_id);
+                $("#id").val(orders[i].id);
+                $("#status").val(orders[i].status);
+                $("#client_id").val(orders[i].client_id);
+                $("#category").val(orders[i].category);
+                $("#model").val(orders[i].model);
+                $("#order").val(orders[i].order);
+                $("#price").val(orders[i].price);
+                $("#amount").val(orders[i].amount);
+                $("#description").val(orders[i].description);
+                $("#windows_key").val(orders[i].windows_key);
+            }
+        }
     });
 }
 
@@ -282,7 +300,7 @@ function Service_deleteService(id) {
 }
 
 //Catura o nome do cliente pelo ID da listagem
-function getNameClient(getName) {    
+function getNameClient(getName) {
 
     $.getJSON("/api/cliente/" + getName, function (data) {
 
@@ -293,14 +311,14 @@ function getNameClient(getName) {
 }
 
 //Confirmar se apaga somente o serviço ou toda OS
-function confirmDelete(service_id, order_id){
+function confirmDelete(service_id, order_id) {
     $("#confirm_delete").modal('show');
 
-    optionDelete = 
+    optionDelete =
         '<a class="btn btn-secondary btn-sm" data-dismiss="modal">Fechar</button>' +
-        '<a class="btn btn-primary btn-sm" onclick="Service_deleteService('+ service_id +')" data-dismiss="modal">Apagar Serviço</a>' +
-        '<a class="btn btn-danger btn-sm" onclick="deleteOrder('+ order_id +')" data-dismiss="modal">Apagar OS</a>'
-    ;
+        '<a class="btn btn-primary btn-sm" onclick="Service_deleteService(' + service_id + ')" data-dismiss="modal">Apagar Serviço</a>' +
+        '<a class="btn btn-danger btn-sm" onclick="deleteOrder(' + order_id + ')" data-dismiss="modal">Apagar OS</a>'
+        ;
 
     $('#option_delete').append(optionDelete);
 

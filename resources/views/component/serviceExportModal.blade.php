@@ -46,7 +46,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" onclick="selectAll(this.checked);" id="select">
+                                <input class="form-check-input" type="checkbox" onclick="selectAllCheckBox(this.checked);" id="select">
                                 <label class="form-check-label" for="">
                                     <span id="acao"><b>Marcar Todos</b></span>
                                 </label> 
@@ -139,7 +139,7 @@
                 <div class="modal-footer">
                     <button type="button" onclick="clearFilters()" class="btn btn-danger" >Limpar Filtros</button>
                     <button type="submit" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-primary">Ver Resultados</button>
+                    <button type="submit" class="btn btn-primary" data-dismiss="modal">Exportar</button>
                 </div>
             </form>
         </div>
