@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-header">Faça Login</div>
                     <div class="card-body">
-                        <form action="/usuario/login" method="POST">
+                        <form action="/" method="POST">
                             @csrf
                             <div class="form-group row">
                                 <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail</label>

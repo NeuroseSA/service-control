@@ -14,7 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $listUser = User::paginate(5);
+        return view('user.userIndex', compact('listUser'));
     }
 
     /**
@@ -65,8 +66,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $u = User::find($id);
-        return view('user.editUser', compact("u"));
+        $user = User::find($id);
+        return view('user.userEdit', compact("user"));
     }
 
     /**
@@ -86,7 +87,7 @@ class UserController extends Controller
         $u->email = $request->input("email");
         $u->save();
 
-        return redirect(route('index'));
+        return redirect(route('user.index'));
         
     }
 
@@ -102,6 +103,6 @@ class UserController extends Controller
         if (isset($user)) {
             $user->delete();
         }
-        return redirect(route('index'));
+        return redirect(route('user.index'));
     }
 }

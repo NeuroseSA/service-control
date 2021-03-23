@@ -5,6 +5,7 @@
     
     <a class="p-2 text-dark" href="/">Home</a>
     <a class="p-2 text-dark" href="{{ route('client.index') }}">Clientes</a>
+    <a class="p-2 text-dark" href="{{ route('user.index') }}">Usuários</a>
     <a class="p-2 text-dark" href="{{ route('service.index') }}">Serviços</a>
     <a class="p-2 text-dark" href="#">Relatórios</a>
 

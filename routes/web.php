@@ -52,12 +52,16 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::prefix('usuario')->group(function () {
+       Route::get('/', 'UserController@index')->name('user.index');
         Route::get('/novo', 'UserController@create')->name('user.new');
+        Route::get('/editar/{id}', 'UserController@edit')->name('user.edit');
+        Route::post('/{id}', 'UserController@update')->name('user.update');
         Route::post('/novo', 'UserController@store');
         Route::get('/logout', 'LoginController@logout')->name('user.logout');
+        Route::get('/apagar/{id}', 'UserController@destroy')->name('user.delete');
     });
 });
 
-Route::get('/usuario/login', 'LoginController@login')->name('user.login');
-Route::post('/usuario/login', 'LoginController@authenticate');
+Route::get('/login', 'LoginController@login')->name('user.login');
+Route::post('/', 'LoginController@authenticate');
 

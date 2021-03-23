@@ -15,16 +15,14 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
-        $autEmail = User::where('email', $request->input('email'))->first();
-        $autPass = User::where('password', $request->input('password'))->first();
-
-        if (isset( $autEmail) && isset($autPass)) {
-            Auth::login($autEmail);
-            return view('index');            
+        $user = User::where('email', $request->input('email'))->first();
+    
+        if (isset( $user) && $user->password == $request->input('password') ) {
+                Auth::login($user);
+                return view('index');                       
         }else{
             return view('user.login');
         }
-
     } 
 
     public function logout(){
