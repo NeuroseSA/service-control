@@ -7,6 +7,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Service;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
@@ -17,9 +18,16 @@ class ServiceController extends Controller
      */
     public function index()
     {
+       
+        if (Auth::check() == true) {
+            
         $listServices = Service::all();
         $listClients = Client::all();
         return view('service.serviceIndex', compact('listServices', 'listClients'));
+        }else{
+            return redirect(route('user.login'));
+        }
+
     }
 
     /**

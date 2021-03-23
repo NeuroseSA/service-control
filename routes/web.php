@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,32 +15,49 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
+
+
+Auth::routes();
+
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('/', function () {
+        return view('index');
+    })->name('index');
+
+    Route::prefix('cliente')->group(function () {
+        //GET
+        Route::get('/', 'ClientController@index')->name('client.index');
+        Route::get('/editar/{id}', 'ClientController@edit')->name('client.edit');
+        Route::get('/novo', 'ClientController@create')->name('client.new');
+        Route::get('/apagar/{id}', 'ClientController@destroy')->name('client.delete');
+        Route::get('/exportar', 'ClientController@export')->name('client.export');
+        Route::get('/show/{id}', 'ClientController@show');
+        
+
+        //POST
+        Route::post('/novo', 'ClientController@store');
+        Route::post('/{id}', 'ClientController@update');
+    });
+
+    Route::prefix('servico')->group(function () {
+        //GET
+        Route::get('/', 'ServiceController@index')->name('service.index');
+        Route::get('/filtros', 'ServiceController@listFilter');
+        Route::get('/novo', 'ServiceController@create')->name('service.new');
+
+        //POST
+        Route::post('/novo', 'ServiceController@store');
+        Route::post('/exportar', 'ServiceController@export')->name('service.export');
+    });
+
+    Route::prefix('usuario')->group(function () {
+        Route::get('/novo', 'UserController@create')->name('user.new');
+        Route::post('/novo', 'UserController@store');
+        Route::get('/logout', 'LoginController@logout')->name('user.logout');
+    });
 });
 
-Route::get('/home', 'UserController@index');
+Route::get('/usuario/login', 'LoginController@login')->name('user.login');
+Route::post('/usuario/login', 'LoginController@authenticate');
 
-Route::prefix('cliente')->group(function () {
-    //GET
-    Route::get('/', 'ClientController@index')->name('client.index');
-    Route::get('/editar/{id}', 'ClientController@edit')->name('client.edit');
-    Route::get('/novo', 'ClientController@create')->name('client.new');
-    Route::get('/apagar/{id}', 'ClientController@destroy')->name('client.delete');
-    Route::get('/exportar', 'ClientController@export')->name('client.export');
-
-    //POST
-    Route::post('/novo', 'ClientController@store');
-    Route::post('/{id}', 'ClientController@update');
-});
-
-Route::prefix('servico')->group(function () {
-    //GET
-    Route::get('/', 'ServiceController@index')->name('service.index');
-    Route::get('/filtros', 'ServiceController@listFilter');
-    Route::get('/novo', 'ServiceController@create')->name('service.new');
-
-    //POST
-    Route::post('/novo', 'ServiceController@store');
-    Route::post('/exportar', 'ServiceController@export')->name('service.export');
-});
