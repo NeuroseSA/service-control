@@ -69,6 +69,7 @@ class ApiServiceController extends Controller
         $serv = new Service();  
         $cli = Client::where('name', $request->input('client'))->first();;    
         $serv->category = $request->input('category');
+        $serv->status = "Aguardando aprovação";
         $serv->price = $request->input('price');
         $serv->amount = $request->input('amount');
         $serv->order = $request->input('order');

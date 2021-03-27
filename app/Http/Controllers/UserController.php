@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\User;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -25,7 +28,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.userCreate');
+        $clients = Client::all();
+        return view('user.userCreate', compact('clients'));
     }
 
     /**
@@ -44,7 +48,16 @@ class UserController extends Controller
         $u->email = $request->input("email");
         $u->save();
 
-        return redirect(route('index'));
+        $iduser = User::where('email', $request->input("email"))->first();
+
+        foreach ($request->clientsUser as $item) {
+            $wallet = new Wallet();
+            $wallet->user_id = $iduser->id;
+            $wallet->client_id = $item;
+            $wallet->save();
+        }
+
+        return redirect(route('user.index'));
     }
 
     /**
@@ -67,7 +80,10 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('user.userEdit', compact("user"));
+        $clients = Client::all();
+        $user = User::find($id);
+        $listClient = $user->clients()->get();
+        return view('user.userEdit', compact('user', 'clients', 'listClient'));
     }
 
     /**
@@ -87,8 +103,27 @@ class UserController extends Controller
         $u->email = $request->input("email");
         $u->save();
 
+        $walletdrop = Wallet::where('user_id', $id)->get();
+        if (isset($walletdrop)) {
+            foreach ($walletdrop as $item) {
+                $user = Wallet::find($item->id);
+               
+                if (isset($user)) {
+                    $user->delete();
+                }
+            }
+        }
+
+        $iduser = User::where('email', $request->input("email"))->first();
+
+        foreach ($request->clientsUser as $item) {
+            $wallet = new Wallet();
+            $wallet->client_id = $item;
+            $wallet->user_id = $iduser->id;
+            $wallet->save();
+        }
+
         return redirect(route('user.index'));
-        
     }
 
     /**

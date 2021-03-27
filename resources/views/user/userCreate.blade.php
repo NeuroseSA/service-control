@@ -4,7 +4,7 @@
 
     <h2>Cadastro de Usuários</h2>
 
-    <form action="/usuario/novo" method="POST">
+    <form action="{{route('user.store')}}" method="POST">
         @csrf
         <div class="row">
             <div class="col">
@@ -32,10 +32,22 @@
         <div class="row">
             <div class="col">
                 <label for="">Senha de acesso</label>
-                <input type="password" class="form-control" placeholder="" name="password"
-                    value="{{ old('password') }}">
+                <input type="password" class="form-control" value="" name="password" value="{{ old('password') }}">
             </div>
             <div class="col">
+                <label for="">Clientes do usuário</label>
+                <div class="row">
+                    <div class="col">
+                        @foreach ($clients as $item)
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox"  name="clientsUser[]" value="{{$item->id}}">
+                            <label class="form-check-label" for="">
+                                <span id="acao">{{$item->name}}</span>
+                            </label>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
         <br>

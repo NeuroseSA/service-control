@@ -56,7 +56,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/novo', 'UserController@create')->name('user.new');
         Route::get('/editar/{id}', 'UserController@edit')->name('user.edit');
         Route::post('/{id}', 'UserController@update')->name('user.update');
-        Route::post('/novo', 'UserController@store');
+        Route::post('/', 'UserController@store')->name('user.store');
         Route::get('/logout', 'LoginController@logout')->name('user.logout');
         Route::get('/apagar/{id}', 'UserController@destroy')->name('user.delete');
     });

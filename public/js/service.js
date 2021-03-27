@@ -133,7 +133,7 @@ function getItemPrevious(orders) {
     } else {
         page = '<li class="page-item active">';
     }
-    page += '<a class="page-link" page="' + i + '" href="#">Anterior</a></li>';
+    page += '<a class="page-link" page="' + i + '" href="">Anterior</a></li>';
     return page;
 }
 
@@ -145,7 +145,7 @@ function getItemNext(orders) {
     } else {
         page = '<li class="page-item active">';
     }
-    page += '<a class="page-link" page="' + i + '" href="#">Próximo</a></li>';
+    page += '<a class="page-link" page="' + i + '" href="">Próximo</a></li>';
     return page;
 }
 
@@ -156,7 +156,7 @@ function getItem(orders, i) {
     } else {
         page = '<li class="page-item">';
     }
-    page += '<a class="page-link" page="' + i + '" href="#">' + i + '</a></li>';
+    page += '<a class="page-link" page="' + i + '" href="">' + i + '</a></li>';
     return page;
 }
 

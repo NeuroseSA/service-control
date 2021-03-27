@@ -37,8 +37,8 @@
                             <td>{{ $item->email }}</td>
                             <td>{{ $item->address }}</td>
                             <td>
-                                <a href="/cliente/editar/{{ $item->id }}" class="btn btn-sm btn-primary">Editar</a>
-                                <a href="/cliente/apagar/{{ $item->id }}" class="btn btn-sm btn-danger">Apagar</a>
+                                <a href="/cliente/editar/{{ $item->id }}" class="btn btn-sm btn-primary" style="width: 70px">Editar</a>
+                                <a href="/cliente/apagar/{{ $item->id }}" class="btn btn-sm btn-danger"style="width: 70px">Apagar</a>
                             </td>
                         </tr>
                     @endforeach

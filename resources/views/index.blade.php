@@ -3,7 +3,7 @@
 @section('body')
 
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h1 class="display-4">Painel de ações</h1>
+        <h1 class="display-4">Painel de Ações</h1>
 
     </div>
 
@@ -16,7 +16,7 @@
                 </div>
                 <div class="card-body">
                     <p class="card-text">Aqui você pode cadastrar clientes.
-                        Para que possíveis serviços parcerias sejam fechadas.
+                        Para que possíveis serviços sejam ofertados.
                     </p>
                     <a href="{{ route('client.index') }}" class="w-100 btn btn-lg btn-primary">Acesse</a>
                 </div>
@@ -42,10 +42,10 @@
         <div class="col">
             <div class="card mb-4 shadow-sm">
                 <div class="card-header">
-                    <h4 class="my-0 fw-normal">Ordem de serviço</h4>
+                    <h4 class="my-0 fw-normal">Usuários</h4>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">Aqui você poderá gerir suas ordens de serviço adicionando ou removendo serviços.
+                    <p class="card-text">Aqui você poderá gerir os técnicos que acessam o sistema e seus respectivos clientes.
                     </p>
                     <a href="{{ route('client.index') }}" class="w-100 btn btn-lg btn-primary">Acesse</a>
                 </div>

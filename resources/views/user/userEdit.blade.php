@@ -36,6 +36,22 @@
                     value="{{$user->password }}">
             </div>
             <div class="col">
+                <label for="">Clientes do usuário</label>
+                <div class="row">
+                    <div class="col">
+                        @foreach ($clients as $item)
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox"  name="clientsUser[]" value="{{$item->id}}" @foreach ($listClient as $item2) @if ($item2->name == $item->name)
+                                checked
+                            @endif
+                            @endforeach>
+                            <label class="form-check-label" for="">
+                                <span id="acao">{{$item->name}}</span>
+                            </label>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
         <br>
