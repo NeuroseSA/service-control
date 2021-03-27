@@ -6,7 +6,6 @@ use App\Models\Client;
 use App\Models\User;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -46,10 +45,7 @@ class UserController extends Controller
         $u->password = $request->input("password");
         $u->fone = $request->input("fone");
         $u->email = $request->input("email");
-        $u->isAdmin = $request->input('isAdmin');
-        if(isset($u->isAdmin)){
-            $u->isAdmin = true;
-        }
+        $u->isAdmin = $request->input('isAdmin') ? true : false;
         $u->save();
 
         $iduser = User::where('email', $request->input("email"))->first();
@@ -105,10 +101,7 @@ class UserController extends Controller
         $u->password = $request->input("password");
         $u->fone = $request->input("fone");
         $u->email = $request->input("email");
-        $u->isAdmin = $request->input('isAdmin');
-        if(isset($u->isAdmin)){
-            $u->isAdmin = true;
-        }
+        $u->isAdmin = $request->input('isAdmin') ? true : false;
         $u->save();
 
         $walletdrop = Wallet::where('user_id', $id)->get();
