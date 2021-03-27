@@ -87,8 +87,8 @@ function listFilter(page) {
 
 //Carrega listagem de serviços paginada, é acionada quando a página carrega ou temos acionamento do #clearFilters
 function listServices(page) {
-
-    $.getJSON('/api/servico', { page: page }, function (orders) {
+    id = $("#iduser").val();
+    $.getJSON('/api/servico/' + id, { page: page }, function (orders) {
         $('#tblServices>tbody>').remove();
         for (i = 0; i < orders.data.length; i++) {
             line = showLine(orders.data[i]);

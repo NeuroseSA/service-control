@@ -63,5 +63,6 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::get('/login', 'LoginController@login')->name('user.login');
+Route::get('/checkLogin', 'ServiceController@checkLogin');
 Route::post('/', 'LoginController@authenticate');
 

@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Exports\ClientsFromView;
 use App\Models\Client;
+use App\Models\User;
+use App\Models\Wallet;
 use Maatwebsite\Excel\Facades\Excel;
 
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
@@ -23,7 +25,8 @@ class ClientController extends Controller
 
     public function index()
     {
-        $listClient = Client::paginate(2);
+        $user = User::find(Auth::user()->id);
+        $listClient = $user->clients()->paginate(2);
         return view("client.clientIndex", compact("listClient"));
     }
 

@@ -29,4 +29,15 @@ class LoginController extends Controller
         Auth::logout();
         return redirect(route('user.login'));
     }
+
+    public function checkLogin()
+    {
+        if (!Auth::check()) {
+            return view('user.login');                       
+            
+        }else{
+            $a = Auth::user()->id;
+            return intval($a);
+        }
+    }
 }

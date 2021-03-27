@@ -13,6 +13,7 @@
   <li class="nav-item dropdown navbar-nav ml-aut">
     <a class="p-2 text-dark dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       {{Auth::user()->name}}
+      <input type="hidden" id="iduser" value="{{Auth::user()->id}}">
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
       <a class="p-2 text-dark" href="{{route('user.logout')}}">Sair</a>

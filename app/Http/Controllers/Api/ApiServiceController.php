@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Controller;
 use App\Models\Service;
 use App\Models\Client;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ApiServiceController extends Controller
 {
@@ -15,9 +18,34 @@ class ApiServiceController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
+    public function index($id)
     {
-        return Service::paginate(5);
+        $u = new LoginController();
+        $us = $u->checkLogin();         
+ 
+        $user = User::find($id);
+
+        $listClient = $user->clients()->select('client_id')->get();       
+        $cli = [];
+        for ($i=0; $i < $listClient->count(); $i++) { 
+            $cli[$i] = $listClient[$i]->client_id;
+        }
+ 
+        return Service::whereIn('client_id', $cli )->paginate(5); 
+
+       // return Service::paginate(5);
+
+    }
+
+    public function checkLogin(){
+        
+        if (!Auth::check()) {
+            return view('index');                       
+            
+        }else{
+            return Auth::user()->id;
+        }
+        
     }
 
     /**

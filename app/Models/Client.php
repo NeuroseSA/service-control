@@ -11,8 +11,7 @@ class Client extends Model
 
     protected $table = 'clients';
 
-    public function orders()
-    {
-        return $this->hasMany(Order::class, 'client_id', 'id');
+    public function users(){ 
+        return $this->belongsToMany(Client::class, 'wallet', 'client_id', 'user_id');     
     }
 }

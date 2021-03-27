@@ -6,6 +6,7 @@ use App\Exports\ServicesFromView;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Service;
 use App\Models\Client;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,16 +19,16 @@ class ServiceController extends Controller
      */
     public function index()
     {
-       
-        if (Auth::check() == true) {
-            
-        $listServices = Service::all();
+        $user = User::find(Auth::user()->id);
+        $listClient = $user->clients()->select('client_id')->get();       
+        $cli = [];
+        for ($i=0; $i < $listClient->count(); $i++) { 
+            $cli[$i] = $listClient[$i]->client_id;
+        }
+        $listServices = Service::whereIn('client_id', $cli )->get();
+      
         $listClients = Client::all();
         return view('service.serviceIndex', compact('listServices', 'listClients'));
-        }else{
-            return redirect(route('user.login'));
-        }
-
     }
 
     /**
@@ -49,6 +50,7 @@ class ServiceController extends Controller
 
         return view('service.serviceCreate', compact('listClients', 'order_id'));
     }
+
 
     /**
      * Store a newly created resource in storage.

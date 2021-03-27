@@ -14,11 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+/* Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
-});
+}); */
+/* 
+Route::group(['middleware' => ['apiJwt']], function(){
+    Route::get('users', 'Api\\UserController@index');
 
-Route::get('/servico', 'Api\\ApiServiceController@index');
+}); */
+
+Route::post('auth/login', 'Api\\AuthController@login');
+
+
+Route::get('/servico/{id}', 'Api\\ApiServiceController@index');
 Route::get('/servico/{client_id}', 'Api\\ApiServiceController@index');
 Route::post('/servico', 'Api\\ApiServiceController@store');
 Route::get('/servico/filtros', 'Api\\ApiServiceController@listFilter');
@@ -29,5 +37,4 @@ Route::delete('/servico/{id}', 'Api\\ApiServiceController@destroy');
 Route::delete('/servico/ordem/{order}', 'Api\\ApiServiceController@destroyOrder');
 Route::get('/cliente/{getName}', 'ClientController@getName');
 Route::get('/servico/exportar', 'ServiceController@export');
-
 
