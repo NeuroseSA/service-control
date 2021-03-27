@@ -53,6 +53,16 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="isAdmin" value="1" @if ($user->isAdmin) checked @endif>
+                        <label class="form-check-label" for="">
+                            <span id="acao">Usuário de administrador</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
         <br>
         <button type="submit" class="btn btn-primary btn-sm">Salvar</button>

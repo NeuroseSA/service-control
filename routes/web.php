@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
@@ -51,17 +49,17 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/exportar', 'ServiceController@export')->name('service.export');
     });
 
-    Route::prefix('usuario')->group(function () {
+    Route::middleware(['isAdmin'])->prefix('usuario')->group(function () {
        Route::get('/', 'UserController@index')->name('user.index');
         Route::get('/novo', 'UserController@create')->name('user.new');
         Route::get('/editar/{id}', 'UserController@edit')->name('user.edit');
         Route::post('/{id}', 'UserController@update')->name('user.update');
         Route::post('/', 'UserController@store')->name('user.store');
-        Route::get('/logout', 'LoginController@logout')->name('user.logout');
         Route::get('/apagar/{id}', 'UserController@destroy')->name('user.delete');
     });
 });
 
+Route::get('/logout', 'LoginController@logout')->name('user.logout');
 Route::get('/login', 'LoginController@login')->name('user.login');
 Route::get('/checkLogin', 'ServiceController@checkLogin');
 Route::post('/', 'LoginController@authenticate');

@@ -7,7 +7,7 @@
 
     </div>
 
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    <div class="row row-cols-1 row-cols-md-3 mb-3 justify-content-center">
 
         <div class="col">
             <div class="card mb-4 shadow-sm">
@@ -38,7 +38,7 @@
 
             </div>
         </div>
-
+        @if(Auth::user()->isAdmin)
         <div class="col">
             <div class="card mb-4 shadow-sm">
                 <div class="card-header">
@@ -47,13 +47,12 @@
                 <div class="card-body">
                     <p class="card-text">Aqui você poderá gerir os técnicos que acessam o sistema e seus respectivos clientes.
                     </p>
-                    <a href="{{ route('client.index') }}" class="w-100 btn btn-lg btn-primary">Acesse</a>
+                    <a href="{{ route('user.index') }}" class="w-100 btn btn-lg btn-primary">Acesse</a>
                 </div>
 
             </div>
         </div>
-
-
+        @endif
     </div>
 
 @endsection

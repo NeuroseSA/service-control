@@ -5,7 +5,9 @@
     
     <a class="p-2 text-dark" href="/">Home</a>
     <a class="p-2 text-dark" href="{{ route('client.index') }}">Clientes</a>
-    <a class="p-2 text-dark" href="{{ route('user.index') }}">Usuários</a>
+    @if(Auth::user()->isAdmin)
+      <a class="p-2 text-dark" href="{{ route('user.index') }}">Usuários</a>
+    @endif
     <a class="p-2 text-dark" href="{{ route('service.index') }}">Serviços</a>
     <a class="p-2 text-dark" href="#">Relatórios</a>
 

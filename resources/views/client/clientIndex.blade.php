@@ -8,7 +8,9 @@
 
 <div class="card border">
     <div class="card-footer">
+        @if(Auth::user()->isAdmin)
         <a href="{{ route('client.new') }}" class="btn btn-primary btn-sm">Cadastrar</a>
+        @endif
         <a href="{{ route('client.export') }}" class="btn btn-primary btn-sm">Exportar</a>
     </div>
     <div class="card-body">
@@ -37,8 +39,10 @@
                             <td>{{ $item->email }}</td>
                             <td>{{ $item->address }}</td>
                             <td>
+                                @if(Auth::user()->isAdmin)
                                 <a href="/cliente/editar/{{ $item->id }}" class="btn btn-sm btn-primary" style="width: 70px">Editar</a>
                                 <a href="/cliente/apagar/{{ $item->id }}" class="btn btn-sm btn-danger"style="width: 70px">Apagar</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

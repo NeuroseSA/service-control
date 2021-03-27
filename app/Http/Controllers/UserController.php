@@ -46,6 +46,10 @@ class UserController extends Controller
         $u->password = $request->input("password");
         $u->fone = $request->input("fone");
         $u->email = $request->input("email");
+        $u->isAdmin = $request->input('isAdmin');
+        if(isset($u->isAdmin)){
+            $u->isAdmin = true;
+        }
         $u->save();
 
         $iduser = User::where('email', $request->input("email"))->first();
@@ -101,6 +105,10 @@ class UserController extends Controller
         $u->password = $request->input("password");
         $u->fone = $request->input("fone");
         $u->email = $request->input("email");
+        $u->isAdmin = $request->input('isAdmin');
+        if(isset($u->isAdmin)){
+            $u->isAdmin = true;
+        }
         $u->save();
 
         $walletdrop = Wallet::where('user_id', $id)->get();
