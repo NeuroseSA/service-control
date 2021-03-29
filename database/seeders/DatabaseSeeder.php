@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use app\Models\Client;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,6 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
+        $this->call(UserSeeder::class);
+        $this->call(ClientSeeder::class);
+        $this->call(WalletSeeder::class);
+        $this->call(ServiceSeeder::class);
     }
 }
