@@ -19,33 +19,21 @@ class ApiServiceController extends Controller
      */
 
     public function index($id)
-    {
-        $u = new LoginController();
-        $us = $u->checkLogin();         
+    {     
  
         $user = User::find($id);
 
-        $listClient = $user->clients()->select('client_id')->get();       
-        $cli = [];
-        for ($i=0; $i < $listClient->count(); $i++) { 
-            $cli[$i] = $listClient[$i]->client_id;
-        }
- 
-        return Service::whereIn('client_id', $cli )->paginate(5); 
-
-       // return Service::paginate(5);
-
-    }
-
-    public function checkLogin(){
-        
-        if (!Auth::check()) {
-            return view('index');                       
-            
+        if ($user->isAdmin) {
+            return Service::paginate(5);
         }else{
-            return Auth::user()->id;
+            $listClient = $user->clients()->select('client_id')->get();       
+            $cli = [];
+            for ($i=0; $i < $listClient->count(); $i++) { 
+                $cli[$i] = $listClient[$i]->client_id;
+            }
+     
+            return Service::whereIn('client_id', $cli )->paginate(5); 
         }
-        
     }
 
     /**
@@ -67,7 +55,7 @@ class ApiServiceController extends Controller
     public function store(Request $request)
     {
         $serv = new Service();  
-        $cli = Client::where('name', $request->input('client'))->first();;    
+        $cli = Client::where('name', $request->input('client'))->first();    
         $serv->category = $request->input('category');
         $serv->status = "Aguardando aprovação";
         $serv->price = $request->input('price');

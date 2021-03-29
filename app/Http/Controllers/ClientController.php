@@ -26,7 +26,12 @@ class ClientController extends Controller
     public function index()
     {
         $user = User::find(Auth::user()->id);
-        $listClient = $user->clients()->paginate(2);
+        if ($user->isAdmin) {
+            $listClient = Client::paginate(5);
+        }else{
+            $listClient = $user->clients()->paginate(5);
+        }
+        
         return view("client.clientIndex", compact("listClient"));
     }
 

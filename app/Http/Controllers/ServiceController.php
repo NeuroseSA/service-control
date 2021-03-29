@@ -18,15 +18,19 @@ class ServiceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    { 
         $user = User::find(Auth::user()->id);
-        $listClient = $user->clients()->select('client_id')->get();       
-        $cli = [];
-        for ($i=0; $i < $listClient->count(); $i++) { 
-            $cli[$i] = $listClient[$i]->client_id;
+
+        if ($user->isAdmin) {
+            $listServices = Service::all();
+        }else{
+            $listClient = $user->clients()->select('client_id')->get();       
+            $cli = [];
+            for ($i=0; $i < $listClient->count(); $i++) { 
+                $cli[$i] = $listClient[$i]->client_id;
+            }
+            $listServices = Service::whereIn('client_id', $cli )->get();
         }
-        $listServices = Service::whereIn('client_id', $cli )->get();
-      
         $listClients = Client::all();
         return view('service.serviceIndex', compact('listServices', 'listClients'));
     }
