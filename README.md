@@ -1,3 +1,17 @@
+## About the Service Control system
+
+System to manage work orders, customers and users.
+Where it is possible to assign permission for the user to attend and see only previously selected clients' services and services report status.
+
+## About the installation
+
+Use the command: **git clone https://github.com/NeuroseSA/service-control.git** so that the project repository is cloned.
+Rename the file, **from: .env-example to: .env** which is configured for the "laravel" database.
+With the project open we will install the dependencies with the command: **composer install**
+Soon after, we will populate the database with the command: **php artisan migrate --seed**
+Generate the key for the Illuminate encryption service with the command: **php artisan key:generate**
+End with the command: **php artisan serve** e explore as funcionalidades do sistema.
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
