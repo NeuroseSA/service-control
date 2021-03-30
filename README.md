@@ -10,7 +10,7 @@ Rename the file, **from: .env-example to: .env** which is configured for the "la
 With the project open we will install the dependencies with the command: **composer install**
 Soon after, we will populate the database with the command: **php artisan migrate --seed**
 Generate the key for the Illuminate encryption service with the command: **php artisan key:generate**
-End with the command: **php artisan serve** e explore as funcionalidades do sistema.
+End with the command: **php artisan serve** and explore the features of the system.
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
