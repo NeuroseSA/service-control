@@ -2,7 +2,7 @@
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form id="formExport" action="{{ route('service.export') }}" method="POST">
+            <form id="formExport" action="{{route('service.export')}}" method="POST">
                 @csrf
 
                 <div class="modal-header">
@@ -40,7 +40,6 @@
 
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Colunas exportáveis</h5>
-
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -56,7 +55,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="id" id="f_id" name="f_id">
+                                <input class="form-check-input" type="checkbox" value="id"  name="f_id" id="f_id">
                                 <label class="form-check-label" for="">
                                     Id do serviço
                                 </label>
@@ -64,7 +63,7 @@
                         </div>
                         <div class="col">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="client_id" id="f_client_id" name="f_client_id">
+                                <input class="form-check-input" type="checkbox" value="client_id"  name="f_client_id" id="f_client_id">
                                 <label class="form-check-label" for="">
                                     Id do cliente
                                 </label>
@@ -74,7 +73,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="description" id="f_description" name="f_description">
+                                <input class="form-check-input" type="checkbox" value="description"  name="f_description" id="f_description">
                                 <label class="form-check-label" for="">
                                     Decrição
                                 </label>
@@ -82,7 +81,7 @@
                         </div>
                         <div class="col">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="order" id="f_order" name="f_order">
+                                <input class="form-check-input" type="checkbox" value="order"  name="f_order" id="f_order">
                                 <label class="form-check-label" for="">
                                     Numero da ordem
                                 </label>
@@ -92,7 +91,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="category" id="f_category" name="f_category">
+                                <input class="form-check-input" type="checkbox" value="category"  name="f_category" id="f_category">
                                 <label class="form-check-label" for="">
                                     Tipo de serviço
                                 </label>
@@ -100,7 +99,7 @@
                         </div>
                         <div class="col">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="price" id="f_price" name="f_price">
+                                <input class="form-check-input" type="checkbox" value="price"  name="f_price" id="f_price">
                                 <label class="form-check-label" for="">
                                     Valor
                                 </label>
@@ -110,7 +109,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="model" id="f_model" name="f_model">
+                                <input class="form-check-input" type="checkbox" value="model"  name="f_model" id="f_model">
                                 <label class="form-check-label" for="">
                                     Modelo do equipamento
                                 </label>
@@ -118,7 +117,7 @@
                         </div>
                         <div class="col">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="windows_key" id="f_windows_key" name="f_windows_key">
+                                <input class="form-check-input" type="checkbox" value="windows_key"  name="f_windows_key" id="f_windows_key">
                                 <label class="form-check-label" for="">
                                     Licença windows
                                 </label>
@@ -128,7 +127,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="amount" id="f_amount" name="f_amount">
+                                <input class="form-check-input" type="checkbox" value="amount"  name="f_amount" id="f_amount">
                                 <label class="form-check-label" for="">
                                     Quantidade
                                 </label>
@@ -139,7 +138,7 @@
                 <div class="modal-footer">
                     <button type="button" onclick="clearFilters()" class="btn btn-danger" >Limpar Filtros</button>
                     <button type="submit" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-primary" data-dismiss="modal">Exportar</button>
+                    <button type="submit" class="btn btn-primary">Exportar</button>
                 </div>
             </form>
         </div>

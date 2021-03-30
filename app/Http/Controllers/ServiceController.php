@@ -112,7 +112,8 @@ class ServiceController extends Controller
         //
     }
 
-    public function export(Request $request){
+    public function export(Request $request){ 
+    
         $columns = array(
             'id' => $request->input('f_id'),
             'client_id' => $request->input('f_client_id'),
@@ -128,7 +129,7 @@ class ServiceController extends Controller
         $client_id = Client::where('name', $request->input('filter_client_id'))->first();        
 
         $filters = array(
-            'filter_client_id' => $client_id->id,
+            'filter_client_id' => $client_id ? $client_id->id : null,
             'filter_category' => $request->input('filter_category'),
             'filter_order' => $request->input('filter_order')
         );

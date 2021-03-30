@@ -15,15 +15,7 @@ class ServicesFromView implements FromQuery , WithHeadings
     public function __construct(
         $columns,
         $filters
-/*         $filter_id = null,
-        $filter_category = null,
-        $filter_client_id = null,
-        $filter_order = null */
     ) {
-/*         $this->filter_id = $filter_id;
-        $this->filter_category = $filter_category;
-        $this->filter_client_id = $filter_client_id;
-        $this->filter_order = $filter_order; */
         $this->columns = $columns;
         $this->filters = $filters;
         $this->header = array();
