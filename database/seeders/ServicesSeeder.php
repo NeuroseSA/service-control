@@ -14,10 +14,11 @@ class ServicesSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=1; $i < 5; $i++) { 
-            # code...
+        $cli = 1;
+        for ($i=1; $i <= 25; $i++) { 
+           
         DB::table('services')->insert([
-            'client_id' => $i,    
+            'client_id' => $cli,    
             'category' => 'Concerto',
             'status' => 'Em Andamento',
             'price' => 150.00,
@@ -29,7 +30,7 @@ class ServicesSeeder extends Seeder
         ]);
 
         DB::table('services')->insert([
-            'client_id' => $i,    
+            'client_id' => $cli,    
             'category' => 'Formatação',
             'status' => 'Em Andamento',
             'price' => 50.00,
@@ -41,7 +42,7 @@ class ServicesSeeder extends Seeder
         ]);
 
         DB::table('services')->insert([
-            'client_id' => $i,    
+            'client_id' => $cli,    
             'category' => 'Formatação e Manutenção Preventiva',
             'status' => 'Reprovado',
             'price' => 250.00,
@@ -51,6 +52,11 @@ class ServicesSeeder extends Seeder
             'windows_key' => 'DSASADD-DASDASD-SADASD',
             'description' => 'Tela quebrada e travando',
         ]);
+
+        $cli++;
+        if ($cli == 5) {
+            $cli = 1;
+        }
     }
 }
 }

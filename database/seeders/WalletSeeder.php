@@ -14,7 +14,7 @@ class WalletSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 2; $i <= 6; $i++) {
+        for ($i = 1; $i <= 5; $i++) {
             DB::table('wallet')->insert([
                 'user_id' => $i,
                 'client_id' => $i,
