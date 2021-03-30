@@ -20,7 +20,7 @@ class ServicesSeeder extends Seeder
         DB::table('services')->insert([
             'client_id' => $cli,    
             'category' => 'Concerto',
-            'status' => 'Em Andamento',
+            'status' => 'Em andamento',
             'price' => 150.00,
             'amount' => 3,
             'order' => $i,
@@ -32,7 +32,7 @@ class ServicesSeeder extends Seeder
         DB::table('services')->insert([
             'client_id' => $cli,    
             'category' => 'Formatação',
-            'status' => 'Em Andamento',
+            'status' => 'Finalizado',
             'price' => 50.00,
             'amount' => 2,
             'order' => $i,
@@ -54,7 +54,7 @@ class ServicesSeeder extends Seeder
         ]);
 
         $cli++;
-        if ($cli == 5) {
+        if ($cli > 5) {
             $cli = 1;
         }
     }
