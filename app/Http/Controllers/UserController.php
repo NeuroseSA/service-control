@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\Client;
 use App\Models\User;
 use App\Models\Wallet;
@@ -37,8 +38,13 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
+        $cpfValidate = User::where('cpf', $request->input("cpf"))->first();
+        if ($cpfValidate) {
+            return redirect()->back()->withErrors('CPF ja cadastrado!');
+        }
+
         $u = new User();
         $u->cpf = $request->input("cpf");
         $u->name = $request->input("name");
@@ -79,7 +85,6 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
         $clients = Client::all();
         $user = User::find($id);
         $listClient = $user->clients()->get();
@@ -93,8 +98,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
+        $cpfValidate = User::where('cpf', $request->input("cpf"))->first();
+        if ($cpfValidate->id != $id) {
+            return redirect()->back()->withErrors('CPF ja cadastrado!');
+        }
+
         $u = User::find($id);
         $u->cpf = $request->input("cpf");
         $u->name = $request->input("name");

@@ -11,7 +11,6 @@
                 <label for="CNPJ">CNPJ</label>
                 <input type="text" class="form-control" placeholder="Informe o CNPJ" name="cnpj"
                     value="{{ old('cnpj') }}">
-                    {{ $errors->email->first('email') }}
                     @error('cnpj') <div class="alert-danger"> <small> {{$message}} </small> </div> @enderror
             </div>
             <div class="col">

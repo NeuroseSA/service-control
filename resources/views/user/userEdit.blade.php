@@ -10,11 +10,13 @@
             <div class="col">
                 <label for="CPF">CPF</label>
                 <input type="text" class="form-control" placeholder="Informe o CPF" name="cpf" value="{{$user->cpf }}">
+                @error('cpf') <div class="alert-danger"> <small> {{ $message }} </small> </div> @enderror
             </div>
             <div class="col">
                 <label for="">Nome completo</label>
                 <input type="text" class="form-control" placeholder="Alex Junior Pinto dos Santos" name="name"
                     value="{{$user->name }}">
+                @error('name') <div class="alert-danger"> <small> {{ $message }} </small> </div> @enderror
             </div>
         </div>
         <div class="row">
@@ -22,11 +24,13 @@
                 <label for="">Contato</label>
                 <input type="text" class="form-control" placeholder="(xx) xxxxx-xxxx" name="fone"
                     value="{{$user->fone }}">
+                @error('fone') <div class="alert-danger"> <small> {{ $message }} </small> </div> @enderror
             </div>
             <div class="col">
                 <label for="">E-mail</label>
                 <input type="email" class="form-control" placeholder="contato@uptech.com.br" name="email"
                     value="{{$user->email }}">
+                @error('email') <div class="alert-danger"> <small> {{ $message }} </small> </div> @enderror
             </div>
         </div>
         <div class="row">
@@ -34,6 +38,7 @@
                 <label for="">Senha de acesso</label>
                 <input type="password" class="form-control" placeholder="" name="password"
                     value="{{$user->password }}">
+                @error('password') <div class="alert-danger"> <small> {{ $message }} </small> </div> @enderror
             </div>
             <div class="col">
                 <label for="">Clientes do usuário</label>
@@ -66,6 +71,6 @@
         </div>
         <br>
         <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
-        <button type="button" class="btn btn-danger btn-sm">Cancelar</button>
+        <a type="button" href="{{route('user.index')}}" class="btn btn-danger btn-sm">Cancelar</a>
     </form>
 @endsection

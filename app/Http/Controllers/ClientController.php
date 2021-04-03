@@ -58,6 +58,10 @@ class ClientController extends Controller
      */
     public function store(ClientRequest $request)
     {
+        $cnpjValidate = User::where('cnpj', $request->input("cnpj"))->first();
+        if ($cnpjValidate) {
+            return redirect()->back()->withErrors('CNPF ja cadastrado!');
+        }
         try {
             $cli = new Client();
             $cli->cnpj = $request->input("cnpj");
@@ -80,21 +84,7 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        $cli = Client::where('id', $id)->first();
-        //dd($cli);
 
-        if (isset($cli)) {
-            echo "<h1> Dados do cliente</h1>";
-            echo "<p> Razão Social: {$cli->name}</p>";
-        }
-
-        $orders = $cli->orders()->get();
-        if (isset($orders)) {
-            echo "<h1> Dados dos serviços</h1>";
-            foreach ($orders as $item) {
-                echo "<p> Descrição: {$item->price}</p>";
-            }
-        }
     }
 
     /**
@@ -116,13 +106,14 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ClientRequest $request, $id)
     {
-        $cli = Client::where('cnpj', $request->input("cnpj"))->first();
-        //   dd($cli);
-        if ($cli->id != $id) {
+        $cnpjValidate = Client::where('cnpj', $request->input("cnpj"))->first();
+        if ($cnpjValidate->id != $id) {
             return redirect()->back()->withErrors('CNPJ ja cadastrado!');
         }
+
+        $cli = Client::find($id);
         $cli->cnpj = $request->input("cnpj");
         $cli->name = $request->input("name");
         $cli->fone = $request->input("fone");

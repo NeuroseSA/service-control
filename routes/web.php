@@ -46,7 +46,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         //POST
         Route::post('/novo', 'ServiceController@store');
-        Route::post('/exportar', 'ServiceController@export')->name('service.export');
+        Route::post('/', 'ServiceController@export')->name('service.export');
     });
 
     Route::middleware(['isAdmin'])->prefix('usuario')->group(function () {
