@@ -2,48 +2,50 @@
 
 @section('body')
 
-<h2>Cadastro de clientes</h2>
+    <h2>Cadastro de clientes</h2>
 
     <form action="{{ route('client.new') }}" method="POST">
         @csrf
         <div class="row">
             <div class="col">
                 <label for="CNPJ">CNPJ</label>
-                <input type="text" class="form-control" placeholder="Informe o CNPJ" name="cnpj" value="{{old('cnpj')}}">
+                <input type="text" class="form-control" placeholder="Informe o CNPJ" name="cnpj"
+                    value="{{ old('cnpj') }}">
+                    {{ $errors->email->first('email') }}
+                    @error('cnpj') <div class="alert-danger"> <small> {{$message}} </small> </div> @enderror
             </div>
             <div class="col">
                 <label for="">Razão Social</label>
-                <input type="text" class="form-control" placeholder="Up Tech - Soluções em TI" name="name" value="{{old('name')}}">
+                <input type="text" class="form-control" is-invalid placeholder="Up Tech - Soluções em TI" name="name"
+                    value="{{ old('name') }}">
+                    @error('name') <div class="alert-danger"> <small> {{$message}} </small> </div> @enderror
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <label for="">Contato</label>
-                <input type="text" class="form-control" placeholder="(xx) xxxxx-xxxx" name="fone" value="{{old('fone')}}">
+                <input type="text" class="form-control" placeholder="(xx) xxxxx-xxxx" name="fone"
+                    value="{{ old('fone') }}">
+                    @error('fone') <div class="alert-danger"> <small> {{$message}} </small> </div> @enderror
             </div>
             <div class="col">
                 <label for="">E-mail</label>
-                <input type="email" class="form-control" placeholder="contato@uptech.com.br" name="email" value="{{old('email')}}">
+                <input type="email" class="form-control" placeholder="contato@uptech.com.br" name="email"
+                    value="{{ old('email') }}">
+                    @error('email') <div class="alert-danger"> <small> {{$message}} </small> </div> @enderror
             </div>
         </div>
         <div class="row">
             <div class="col-6">
                 <label for="">Endereço completo</label>
                 <input type="text" class="form-control"
-                    placeholder="Avenida Conde de Boa Vista, 2430 - Jardim Santa Emilia, Campo Grande/MS" name="address" value="{{old('address')}}">
+                    placeholder="Avenida Conde de Boa Vista, 2430 - Jardim Santa Emilia, Campo Grande/MS" name="address"
+                    value="{{ old('address') }}">
+                    @error('address') <div class="alert-danger"> <small> {{$message}} </small> </div> @enderror
             </div>
         </div>
-        <br>        
+        <br>
         <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
-        <button type="button" class="btn btn-danger btn-sm">Cancelar</button>
+        <a type="button" class="btn btn-danger btn-sm" href="{{route('client.index')}}">Cancelar</a>
     </form>
-    @if ($errors->any())
-    <div class="card-footer">
-        @foreach ($errors->all() as $errors)
-            <div class="alert alert-danger" role="alert">
-                {{ $errors }}
-            </div>
-        @endforeach
-    </div>
-@endif
 @endsection
