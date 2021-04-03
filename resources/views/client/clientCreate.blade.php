@@ -9,8 +9,8 @@
         <div class="row">
             <div class="col">
                 <label for="CNPJ">CNPJ</label>
-                <input type="text" class="form-control" placeholder="Informe o CNPJ" name="cnpj"
-                    value="{{ old('cnpj') }}">
+                <input type="text" class="form-control" placeholder="Informe o CNPJ" id="cnpj" name="cnpj"
+                    value="{{ old('cnpj') }}" maxlength="18">
                     @error('cnpj') <div class="alert-danger"> <small> {{$message}} </small> </div> @enderror
             </div>
             <div class="col">
@@ -24,13 +24,13 @@
             <div class="col">
                 <label for="">Contato</label>
                 <input type="text" class="form-control" placeholder="(xx) xxxxx-xxxx" name="fone"
-                    value="{{ old('fone') }}">
+                    value="{{ old('fone') }}" maxlength="15" onkeypress="foneMask(this)">
                     @error('fone') <div class="alert-danger"> <small> {{$message}} </small> </div> @enderror
             </div>
             <div class="col">
                 <label for="">E-mail</label>
                 <input type="email" class="form-control" placeholder="contato@uptech.com.br" name="email"
-                    value="{{ old('email') }}">
+                    value="{{ old('email') }}" onkeypress="emailValidate();">
                     @error('email') <div class="alert-danger"> <small> {{$message}} </small> </div> @enderror
             </div>
         </div>

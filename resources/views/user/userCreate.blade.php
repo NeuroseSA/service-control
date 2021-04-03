@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col">
                 <label for="CPF">CPF</label>
-                <input type="text" class="form-control" placeholder="Informe o CPF" name="cpf" value="{{ old('cpf') }}">
+                <input type="text" class="form-control" placeholder="Informe o CPF" id="cpf" name="cpf" value="{{ old('cpf') }}" maxlength="14">
                 @error('cpf') <div class="alert-danger"> <small> {{ $message }} </small> </div> @enderror
             </div>
             <div class="col">
@@ -23,13 +23,13 @@
             <div class="col">
                 <label for="">Contato</label>
                 <input type="text" class="form-control" placeholder="(xx) xxxxx-xxxx" name="fone"
-                    value="{{ old('fone') }}">
+                    value="{{ old('fone') }}" onkeypress="foneMask(this);" maxlength="15">
                 @error('fone') <div class="alert-danger"> <small> {{ $message }} </small> </div> @enderror
             </div>
             <div class="col">
                 <label for="">E-mail</label>
                 <input type="email" class="form-control" placeholder="contato@uptech.com.br" name="email"
-                    value="{{ old('email') }}">
+                    value="{{ old('email') }}" onkeypress="emailValidate();" >
                 @error('email') <div class="alert-danger"> <small> {{ $message }} </small> </div> @enderror
             </div>
         </div>
